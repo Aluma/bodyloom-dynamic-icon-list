@@ -8,19 +8,22 @@ Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Create static and dynamic icon lists from Elementor, blocks, shortcodes, and custom field repeaters.
+Create static and dynamic icon lists for Elementor, the Block Editor, and shortcodes.
 
 == Description ==
 
-Bodyloom Dynamic Icon List displays static list items or dynamic list data from ACF Pro, Meta Box, and Pods repeater-style fields. It includes an Elementor widget, a dynamic block, and a shortcode.
+Bodyloom Dynamic Icon List displays static list items or dynamic icon-list data from ACF Pro, Meta Box, and Pods repeater-style fields. It includes an Elementor widget, a dynamic block, and a shortcode so the same content pattern can be used across page builders and native WordPress content.
 
 Features include:
 
 * Static list items in Elementor.
 * Dynamic repeater field output from ACF Pro, Meta Box, or Pods.
-* Editor field pickers with manual field-path fallbacks.
+* Editor field pickers for discovered repeater and subfield paths.
+* Manual field-path fallbacks for compatibility, nested paths, and undiscovered field layouts.
 * Layout, marker, spacing, color, typography, and link controls.
 * Gutenberg block and shortcode rendering for non-Elementor layouts.
+* Cache-aware dynamic Elementor rendering.
+* Defensive provider handling so missing optional plugins do not fatal the site.
 
 The plugin does not connect to external services or load remote JavaScript or CSS.
 
@@ -34,17 +37,16 @@ The plugin does not connect to external services or load remote JavaScript or CS
 
 = Elementor =
 
-Use the "Bodyloom Icon List" widget. Choose Static for manually managed list items, or Dynamic to select a repeater field from ACF Pro, Meta Box, or Pods.
+Use the "Bodyloom Icon List" widget. Choose Static for manually managed list items, or Dynamic to use repeater data from ACF Pro, Meta Box, or Pods.
 
 = Block Editor =
 
-Use the "Bodyloom Icon List" block and configure the field source in the block sidebar.
+Use the "Bodyloom Icon List" block and configure the source, repeater field, text field, value field, and optional link field in the block sidebar.
 
 = Shortcode =
 
 Use a shortcode such as:
-
-`[bodyloom_icon_list data_type="dynamic" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]`
+`[bodyloom_icon_list data_type="dynamic" dynamic_source="acf" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]`
 
 == Frequently Asked Questions ==
 
@@ -58,24 +60,25 @@ The widget, block, or shortcode returns an empty result instead of causing a fat
 
 = Can I still type field paths manually? =
 
-Yes. Field pickers are provided where possible, but manual field-path fields remain available for compatibility and fallback use.
+Yes. Field pickers are provided where possible, but manual field-path fields remain available for compatibility, nested paths, and fallback use.
 
 == Screenshots ==
 
-1. Elementor elements panel.
-2. Icon list content controls.
-3. Icon list style controls.
-4. Additional icon list style controls.
-5. Rendered frontend example.
+1. Elementor elements panel: `assets/screenshots/elementor-elements-panel-bodyloom-icon-list-and-toggles-plugins.png`
+2. Icon list content controls: `assets/screenshots/edit-bodyloom-icon-list-content-edit-panel.png`
+3. Icon list style controls: `assets/screenshots/edit-bodyloom-icon-list-style-edit-panel-1.png`
+4. Additional icon list style controls: `assets/screenshots/edit-bodyloom-icon-list-style-edit-panel-2.png`
+5. Rendered frontend example: `assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg`
 
 == Changelog ==
 
 = 1.1.0 =
 * Added editor field pickers with manual field-path fallbacks.
-* Improved provider selection for ACF Pro, Meta Box, and Pods.
+* Added provider support for ACF Pro, Meta Box, and Pods repeater data.
 * Marked dynamic Elementor output as dynamic for cache compatibility.
 * Improved block editor metadata and release packaging readiness.
 * Hardened rendering and metadata for WordPress.org submission.
+* Updated screenshot references and documentation for the v1.1.0 feature set.
 
 = 1.0.0 =
 * Initial release.
