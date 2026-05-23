@@ -24,6 +24,5 @@ $bodyloom_settings['data_type'] = isset($bodyloom_settings['data_type']) ? $body
 $bodyloom_provider = Provider_Factory::get_provider($bodyloom_settings);
 $bodyloom_items = $bodyloom_provider->get_items($bodyloom_settings);
 
-// Render
-echo wp_kses_post(Renderer::render($bodyloom_settings, $bodyloom_items));
-
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Renderer escapes all dynamic values during construction.
+echo Renderer::render($bodyloom_settings, $bodyloom_items);

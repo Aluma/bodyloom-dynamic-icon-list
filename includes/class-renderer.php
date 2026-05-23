@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 
 class Renderer
 {
+    private const ALLOWED_TITLE_TAGS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p'];
 
     public static function render($settings, $items)
     {
@@ -35,7 +36,7 @@ class Renderer
         $output .= '<div class="' . esc_attr($wrapper_class) . '" style="' . esc_attr($style_string) . '">';
 
         if (!empty($settings['title'])) {
-            $tag = isset($settings['title_tag']) ? $settings['title_tag'] : 'h3';
+            $tag = self::validate_title_tag($settings['title_tag'] ?? 'h3');
             $output .= '<' . $tag . ' class="bodyloom-widget-icon-list-title">' . esc_html($settings['title']) . '</' . $tag . '>';
         }
 
@@ -44,16 +45,10 @@ class Renderer
         foreach ($items as $index => $item) {
             $link_type = isset($settings['link_click']) ? $settings['link_click'] : 'text';
             $has_link = !empty($item['link']['url']);
-            $link_attrs = '';
+            $link_attrs = self::get_link_attributes($item['link'] ?? []);
 
             if ($has_link) {
-                $link_attrs .= ' href="' . esc_url($item['link']['url']) . '"';
-                if (!empty($item['link']['is_external'])) {
-                    $link_attrs .= ' target="_blank"';
-                }
-                if (!empty($item['link']['nofollow'])) {
-                    $link_attrs .= ' rel="nofollow"';
-                }
+                $has_link = '' !== $link_attrs;
             }
 
             // Classes
@@ -96,7 +91,7 @@ class Renderer
                     // Try to render icon markup
                     // <i class="..."></i> provided by $settings['global_icon']['value']
                     if (!empty($settings['global_icon']['value'])) {
-                        $output .= '<span><i class="' . esc_attr($settings['global_icon']['value']) . '"></i></span>';
+                        $output .= '<span><i class="' . esc_attr($settings['global_icon']['value']) . '" aria-hidden="true"></i></span>';
                     }
                 }
                 $output .= '</span>';
@@ -146,12 +141,59 @@ class Renderer
         $vars = [];
 
         if (isset($settings['space_between']['size'])) {
-            $vars['--bodyloom-icon-list-items-gap'] = 'calc(' . $settings['space_between']['size'] . $settings['space_between']['unit'] . ' / 2)';
+            $unit = $settings['space_between']['unit'] ?? 'px';
+
+            if (in_array($unit, ['px', 'em'], true)) {
+                $vars['--bodyloom-icon-list-items-gap'] = 'calc(' . (float) $settings['space_between']['size'] . $unit . ' / 2)';
+            }
         }
 
         // Add other variables here...
         // For the sake of this task, I will include major ones but might not be exhaustive unless requested.
 
         return $vars;
+    }
+
+    private static function validate_title_tag($tag)
+    {
+        $tag = strtolower((string) $tag);
+
+        return in_array($tag, self::ALLOWED_TITLE_TAGS, true) ? $tag : 'h3';
+    }
+
+    private static function get_link_attributes($link)
+    {
+        if (empty($link['url'])) {
+            return '';
+        }
+
+        $attributes = [
+            'href' => esc_url($link['url']),
+        ];
+        $rel = [];
+
+        if (!empty($link['is_external'])) {
+            $attributes['target'] = '_blank';
+            $rel[] = 'noopener';
+            $rel[] = 'noreferrer';
+        }
+
+        if (!empty($link['nofollow'])) {
+            $rel[] = 'nofollow';
+        }
+
+        if ($rel) {
+            $attributes['rel'] = implode(' ', array_unique($rel));
+        }
+
+        $output = '';
+
+        foreach ($attributes as $name => $value) {
+            if ('' !== $value) {
+                $output .= sprintf(' %s="%s"', esc_attr($name), esc_attr($value));
+            }
+        }
+
+        return trim($output);
     }
 }

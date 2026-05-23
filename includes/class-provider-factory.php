@@ -19,22 +19,17 @@ class Provider_Factory
     {
         $type = isset($settings['data_type']) ? $settings['data_type'] : 'static';
 
-        // Check if a specific dynamic source is selected (if we add a control for source selection later)
-        // For now, if dynamic, we might need to check which specific provider logic to use, or if 'dynamic' implies ACF by default
-        // In the original file, it seemed generic, but usually there's a selector.
-        // Assuming 'data_type' is 'dynamic', we need to check if there is a 'dynamic_source' control or we just try ACF.
-        // In the refactored code provided, there were controls for 'acf_repeater_field_name'.
-
-        // Let's assume for now:
         if ('static' === $type) {
             return new Static_Provider();
         }
 
-        // If dynamic, we default to ACF for now (based on prior convo), but we should probably detect or have a setting.
-        // I will add a check if we implement a 'dynamic_source' control. If not, I'll default to ACF Provider for 'dynamic'.
-
-        // Note: The previous plugin had explicit support for multiple, so I'll add logic here:
         $source = isset($settings['dynamic_source']) ? $settings['dynamic_source'] : 'acf';
+        $field_path = isset($settings['acf_repeater_field_name']) ? $settings['acf_repeater_field_name'] : '';
+        $parsed = self::parse_source_path($field_path);
+
+        if (!empty($parsed['source'])) {
+            $source = $parsed['source'];
+        }
 
         switch ($source) {
             case 'pods':
@@ -45,5 +40,55 @@ class Provider_Factory
             default:
                 return new Acf_Provider();
         }
+    }
+
+    public static function parse_source_path($path)
+    {
+        $path = is_string($path) ? trim($path) : '';
+
+        if (preg_match('/^(acf|pods|metabox):(.+)$/', $path, $matches)) {
+            return [
+                'source' => $matches[1],
+                'path' => $matches[2],
+            ];
+        }
+
+        return [
+            'source' => '',
+            'path' => $path,
+        ];
+    }
+
+    public static function get_field_path($settings, $key)
+    {
+        $parsed = self::parse_source_path($settings[$key] ?? '');
+
+        return $parsed['path'];
+    }
+
+    public static function get_nested_value($data, $path, $root_path = '')
+    {
+        $path = is_string($path) ? trim($path) : '';
+        $root_path = self::parse_source_path($root_path)['path'];
+
+        if ($root_path && 0 === strpos($path, $root_path . '/')) {
+            $path = substr($path, strlen($root_path) + 1);
+        }
+
+        if ('' === $path) {
+            return '';
+        }
+
+        $value = $data;
+
+        foreach (explode('/', $path) as $part) {
+            if (is_array($value) && array_key_exists($part, $value)) {
+                $value = $value[$part];
+            } else {
+                return '';
+            }
+        }
+
+        return $value;
     }
 }

@@ -17,7 +17,8 @@ class Pods_Provider implements Provider
             return [];
         }
 
-        $repeater_name = isset($settings['acf_repeater_field_name']) ? $settings['acf_repeater_field_name'] : ''; // Reusing the control name for simplicity
+        $repeater_name = \Bodyloom\DynamicIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name_manual'); // Reusing the control name for simplicity
+        $repeater_name = $repeater_name ?: \Bodyloom\DynamicIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name');
 
         if (empty($repeater_name)) {
             return [];
@@ -36,14 +37,14 @@ class Pods_Provider implements Provider
         }
 
         $items = [];
-        $text_key = isset($settings['dynamic_text_sub_field']) ? $settings['dynamic_text_sub_field'] : 'text';
-        $value_key = isset($settings['dynamic_value_sub_field']) ? $settings['dynamic_value_sub_field'] : 'value';
-        $link_key = isset($settings['dynamic_link_sub_field']) ? $settings['dynamic_link_sub_field'] : 'link';
+        $text_key = !empty($settings['dynamic_text_sub_field_manual']) ? $settings['dynamic_text_sub_field_manual'] : ($settings['dynamic_text_sub_field'] ?? 'text');
+        $value_key = !empty($settings['dynamic_value_sub_field_manual']) ? $settings['dynamic_value_sub_field_manual'] : ($settings['dynamic_value_sub_field'] ?? 'value');
+        $link_key = !empty($settings['dynamic_link_sub_field_manual']) ? $settings['dynamic_link_sub_field_manual'] : ($settings['dynamic_link_sub_field'] ?? 'link');
 
         foreach ($rows as $row) {
-            $text = isset($row[$text_key]) ? $row[$text_key] : '';
-            $value = isset($row[$value_key]) ? $row[$value_key] : '';
-            $link_raw = isset($row[$link_key]) ? $row[$link_key] : '';
+            $text = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $text_key, $repeater_name);
+            $value = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $value_key, $repeater_name);
+            $link_raw = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $link_key, $repeater_name);
 
             // Normalize Link
             $link = [

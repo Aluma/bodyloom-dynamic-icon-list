@@ -13,6 +13,7 @@ use Elementor\Icons_Manager;
 use Elementor\Plugin;
 use Elementor\Repeater;
 use Elementor\Utils;
+use Bodyloom\DynamicIconList\Field_Discovery;
 use Bodyloom\DynamicIconList\Provider_Factory;
 
 
@@ -98,7 +99,7 @@ class Icon_List_Widget extends Widget_Base
      */
     protected function is_dynamic_content(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -615,11 +616,38 @@ class Icon_List_Widget extends Widget_Base
     protected function register_list_dynamic_content()
     {
         $this->add_control(
+            'dynamic_source',
+            array(
+                'label' => __('Dynamic Source', 'bodyloom-dynamic-icon-list'),
+                'type' => Controls_Manager::SELECT,
+                'options' => array(
+                    'acf' => __('ACF', 'bodyloom-dynamic-icon-list'),
+                    'pods' => __('Pods', 'bodyloom-dynamic-icon-list'),
+                    'metabox' => __('Meta Box', 'bodyloom-dynamic-icon-list'),
+                ),
+                'default' => 'acf',
+                'condition' => array('data_type' => 'dynamic'),
+            )
+        );
+
+        $this->add_control(
             'acf_repeater_field_name',
             array(
-                'label' => __('ACF Repeater Field Name', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Repeater Field Path', 'bodyloom-dynamic-icon-list'),
+                'type' => Controls_Manager::SELECT2,
+                'options' => Field_Discovery::get_repeater_options(get_post_type() ?: 'post'),
+                'description' => __('Choose a discovered field or use the manual field path fallback below.', 'bodyloom-dynamic-icon-list'),
+                'label_block' => true,
+                'condition' => array('data_type' => 'dynamic'),
+            )
+        );
+
+        $this->add_control(
+            'acf_repeater_field_name_manual',
+            array(
+                'label' => __('Manual Repeater Field Path', 'bodyloom-dynamic-icon-list'),
                 'type' => Controls_Manager::TEXT,
-                'description' => __('Enter the ACF Repeater field name/key.', 'bodyloom-dynamic-icon-list'),
+                'description' => __('Used when no discovered field is selected. Supports nested paths such as parent/child.', 'bodyloom-dynamic-icon-list'),
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
             )
@@ -629,6 +657,17 @@ class Icon_List_Widget extends Widget_Base
             'dynamic_text_sub_field',
             array(
                 'label' => __('Text Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'type' => Controls_Manager::SELECT2,
+                'options' => Field_Discovery::get_leaf_field_options(get_post_type() ?: 'post'),
+                'label_block' => true,
+                'condition' => array('data_type' => 'dynamic'),
+            )
+        );
+
+        $this->add_control(
+            'dynamic_text_sub_field_manual',
+            array(
+                'label' => __('Manual Text Sub-field Key', 'bodyloom-dynamic-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
@@ -639,6 +678,17 @@ class Icon_List_Widget extends Widget_Base
             'dynamic_value_sub_field',
             array(
                 'label' => __('Value Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'type' => Controls_Manager::SELECT2,
+                'options' => Field_Discovery::get_leaf_field_options(get_post_type() ?: 'post'),
+                'label_block' => true,
+                'condition' => array('data_type' => 'dynamic'),
+            )
+        );
+
+        $this->add_control(
+            'dynamic_value_sub_field_manual',
+            array(
+                'label' => __('Manual Value Sub-field Key', 'bodyloom-dynamic-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
@@ -649,6 +699,17 @@ class Icon_List_Widget extends Widget_Base
             'dynamic_link_sub_field',
             array(
                 'label' => __('Link Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'type' => Controls_Manager::SELECT2,
+                'options' => Field_Discovery::get_leaf_field_options(get_post_type() ?: 'post'),
+                'label_block' => true,
+                'condition' => array('data_type' => 'dynamic'),
+            )
+        );
+
+        $this->add_control(
+            'dynamic_link_sub_field_manual',
+            array(
+                'label' => __('Manual Link Sub-field Key', 'bodyloom-dynamic-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),

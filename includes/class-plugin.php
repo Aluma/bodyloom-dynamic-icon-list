@@ -26,6 +26,8 @@ class Plugin
 		add_action('elementor/widgets/register', [$this, 'register_elementor_widgets']);
 
 		add_action('elementor/controls/register', [$this, 'register_controls']);
+
+		add_action('rest_api_init', [$this, 'register_rest_routes']);
 	}
 
 	public function init()
@@ -58,5 +60,38 @@ class Plugin
 			require_once $widget_file;
 			$widgets_manager->register(new \Bodyloom\DynamicIconList\Widgets\Elementor\Icon_List_Widget());
 		}
+	}
+
+	public function register_rest_routes()
+	{
+		register_rest_route(
+			'bodyloom-dynamic-icon-list/v1',
+			'/fields',
+			[
+				'methods' => 'GET',
+				'callback' => [$this, 'get_field_discovery'],
+				'permission_callback' => function () {
+					return current_user_can('edit_posts');
+				},
+				'args' => [
+					'post_type' => [
+						'type' => 'string',
+						'sanitize_callback' => 'sanitize_key',
+					],
+					'refresh' => [
+						'type' => 'boolean',
+						'default' => false,
+					],
+				],
+			]
+		);
+	}
+
+	public function get_field_discovery($request)
+	{
+		$post_type = $request->get_param('post_type') ?: 'post';
+		$refresh = (bool) $request->get_param('refresh');
+
+		return rest_ensure_response(Field_Discovery::get_rest_data($post_type, $refresh));
 	}
 }

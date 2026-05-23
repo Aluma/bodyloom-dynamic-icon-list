@@ -1,49 +1,54 @@
-# Bodyloom Icon List
+# Bodyloom Dynamic Icon List
 
 **Contributors:** Jimmy Thanki  
 **Tags:** icon list, acf, metabox, pods, elementor  
 **Requires at least:** 5.0  
-**Tested up to:** 6.7  
+**Tested up to:** 7.0  
 **Requires PHP:** 7.4  
+**Stable tag:** 1.1.0  
 **License:** GPLv2 or later  
 
-## Description
+Bodyloom Dynamic Icon List creates static and dynamic icon lists from Elementor, blocks, shortcodes, and custom field repeaters.
 
-Bodyloom Icon List allows you to easily create dynamic icon lists using data from your favorite custom field plugins. Display services, features, pricing, or any other list data with customizable icons and styles.
+## Features
 
-**Key Features:**
-*   **Universal Support:** Works with Elementor, Gutenberg, and Shortcode.
-*   **Multi-Provider:** Supports ACF Pro, Meta Box, and Pods.
-*   **Dynamic Data:** Fetch list items directly from repeater fields.
-*   **Customizable:** Control layout (row/column), icons, colors, spacing, and more.
+- Static list items in Elementor.
+- Dynamic repeater output from ACF Pro, Meta Box, or Pods.
+- Editor field pickers with manual field-path fallbacks.
+- Layout, marker, spacing, color, typography, and link controls.
+- Gutenberg block and shortcode rendering for non-Elementor layouts.
 
 ## Installation
 
-1. Upload `bodyloom-dynamic-icon-list` to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
+1. Upload `bodyloom-dynamic-icon-list` to `/wp-content/plugins/`.
+2. Activate the plugin in WordPress.
+3. Add the Bodyloom Icon List widget, block, or shortcode.
 
 ## Usage
 
-**Elementor:**
-Search for the "Bodyloom Icon List" widget and drag it into your layout. Select 'Dynamic' data type and configure your repeal field settings.
+Elementor: use the "Bodyloom Icon List" widget.
 
-**Gutenberg:**
-Search for the "Icon List" block and add it to your post or page.
+Block Editor: use the "Bodyloom Icon List" block.
 
-**Shortcode:**
-`[bodyloom_icon_list acf_repeater_field_name="my_repeater"]`
+Shortcode:
 
-## Troubleshooting
-
-**Changes not showing in Elementor?**
-If you make changes to the layout or styling controls but don't see them reflected immediately in the Elementor editor:
-1.  Go to **Elementor > Tools > Elementor Cache** and click **Clear Files & Data**.
-2.  Go to **Elementor > Tools > Sync Library** and click **Sync Library**.
+```text
+[bodyloom_icon_list data_type="dynamic" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]
+```
 
 ## Changelog
 
+### 1.1.0
+
+- Added editor field pickers with manual field-path fallbacks.
+- Improved provider selection for ACF Pro, Meta Box, and Pods.
+- Marked dynamic Elementor output as dynamic for cache compatibility.
+- Improved block editor metadata and release packaging readiness.
+- Hardened rendering and metadata for WordPress.org submission.
+
 ### 1.0.0
-*   Initial release.
+
+- Initial release.
 
 ## Screenshots
 
