@@ -22,7 +22,7 @@ Bodyloom Dynamic Icon List creates static and dynamic icon lists for Elementor, 
 - Defensive provider handling so missing ACF, Meta Box, Pods, or Elementor dependencies do not fatal the site.
 
 ## Good Karma Donation
-If you found this plugin to be useful, please consider donating to the dhamma.org Vipassana Meditation organization that operates purely on volunteer work and donations. I will upload my donation receipts on an appropriate cadence if you go through my link, or you can donate directly by following instructions on <a href="https://www.dhamma.org/en/dana">this page</a>. 
+If you found this plugin to be useful, please consider donating to the dhamma.org Vipassana Meditation organization that operates purely on volunteer work and donations. I will upload my donation receipts on an appropriate cadence if you go through my link, or you can donate directly by following instructions on <a href="https://www.dhamma.org/en/dana" target="_blank">this page</a>. 
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="aluma" data-color="#FF5F5F" data-emoji="☸️"  data-font="Poppins" data-text="Donate to dhamma.org" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
 
 ## Installation
