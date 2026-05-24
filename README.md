@@ -44,15 +44,19 @@ Field pickers are convenience controls. Manual fields remain available for compa
 ## Screenshots
 
 *Elementor Elements Panel*
+
 ![Elementor Elements Panel](assets/screenshots/elementor-elements-panel-bodyloom-icon-list-and-toggles-plugins.png)
 
 *Content Edit Panel*
+
 ![Content Edit Panel](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-1.png)
 
 *Additional Content Controls*
+
 ![Additional Content Controls](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-2.png)
 
 *Rendered Frontend Example*
+
 ![Rendered Frontend Example](assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg)
 
 ## Changelog
