@@ -65,10 +65,9 @@ Yes. Field pickers are provided where possible, but manual field-path fields rem
 == Screenshots ==
 
 1. Elementor elements panel: `assets/screenshots/elementor-elements-panel-bodyloom-icon-list-and-toggles-plugins.png`
-2. Icon list content controls: `assets/screenshots/edit-bodyloom-icon-list-content-edit-panel.png`
-3. Icon list style controls: `assets/screenshots/edit-bodyloom-icon-list-style-edit-panel-1.png`
-4. Additional icon list style controls: `assets/screenshots/edit-bodyloom-icon-list-style-edit-panel-2.png`
-5. Rendered frontend example: `assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg`
+2. Icon list content controls: `assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-1.png`
+3. Additional icon list content controls: `assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-2.png`
+4. Rendered frontend example: `assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg`
 
 == Changelog ==
 

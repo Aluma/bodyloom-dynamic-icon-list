@@ -47,13 +47,10 @@ Field pickers are convenience controls. Manual fields remain available for compa
 ![Elementor Elements Panel](assets/screenshots/elementor-elements-panel-bodyloom-icon-list-and-toggles-plugins.png)
 
 *Content Edit Panel*
-![Content Edit Panel](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel.png)
+![Content Edit Panel](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-1.png)
 
-*Style Edit Panel 1*
-![Style Edit Panel 1](assets/screenshots/edit-bodyloom-icon-list-style-edit-panel-1.png)
-
-*Style Edit Panel 2*
-![Style Edit Panel 2](assets/screenshots/edit-bodyloom-icon-list-style-edit-panel-2.png)
+*Additional Content Controls*
+![Additional Content Controls](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-2.png)
 
 *Rendered Frontend Example*
 ![Rendered Frontend Example](assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg)
