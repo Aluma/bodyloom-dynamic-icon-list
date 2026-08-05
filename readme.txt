@@ -1,10 +1,10 @@
 === Bodyloom Dynamic Icon List ===
 Contributors: Jimmy Thanki
 Tags: icon list, acf, metabox, pods, elementor
-Requires at least: 5.0
+Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,10 @@ Yes. Field pickers are provided where possible, but manual field-path fields rem
 4. Rendered frontend example: `assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg`
 
 == Changelog ==
+
+= 1.1.2 =
+* Corrected the minimum WordPress version to 6.3. The block uses Block API v3, which is not available on earlier releases.
+* Removed screenshots and GitHub-only documentation from the distributed package.
 
 = 1.1.1 =
 * Field paths may be given as either ACF field names or ACF field keys; keys are resolved to names before lookup.

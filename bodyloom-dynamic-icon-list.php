@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Bodyloom Dynamic Icon List
  * Description: A versatile icon list plugin for WordPress (Elementor, Gutenberg, Shortcode) supporting static and dynamic content (ACF, Pods, Meta Box).
- * Version: 1.1.1
- * Requires at least: 5.0
+ * Version: 1.1.2
+ * Requires at least: 6.3
  * Tested up to: 7.0
  * Requires PHP: 7.4
  * Author: Jimmy Thanki
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin Constants
-define('BODYLOOM_DYNAMIC_ICON_LIST_VERSION', '1.1.1');
+define('BODYLOOM_DYNAMIC_ICON_LIST_VERSION', '1.1.2');
 define('BODYLOOM_DYNAMIC_ICON_LIST_PATH', plugin_dir_path(__FILE__));
 define('BODYLOOM_DYNAMIC_ICON_LIST_URL', plugin_dir_url(__FILE__));
 
