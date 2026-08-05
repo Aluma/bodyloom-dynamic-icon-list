@@ -42,4 +42,13 @@ class Legacy_Widget_Alias extends Icon_List_Widget
     {
         return false;
     }
+
+    /**
+     * Elementor derives the wrapper class from get_name(). Report the canonical
+     * class so any wrapper-scoped styles apply to aliased widgets too.
+     */
+    public function get_html_wrapper_class()
+    {
+        return 'elementor-widget-' . parent::get_name();
+    }
 }
