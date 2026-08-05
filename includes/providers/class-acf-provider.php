@@ -24,44 +24,10 @@ class Acf_Provider implements Provider
             return [];
         }
 
-        // Handle nested repeaters (e.g., 'parent/child')
-        // For simplicity, let's assume direct field access first or standard ACF get_field which can handle some paths if we do it right,
-        // but typically get_field('repeater') returns the array.
-        // If the user provided 'parent/child', we might need to explode. 
-        // Original code description said: "For nested fields, use a slash"
+        $repeater_name = $this->normalize_path($repeater_name);
+        $rows = $this->resolve_rows(get_the_ID(), $repeater_name);
 
-        $keys = explode('/', $repeater_name);
-        $rows = [];
-
-        $current_obj = get_queried_object();
-        $post_id = get_the_ID();
-        // If we are on an archive or special page, this might need adjustment, typically get_the_ID() is safe for single posts.
-
-        if (count($keys) > 1) {
-            // Nested Logic
-            $parent = get_field($keys[0]);
-            if (is_array($parent)) {
-                // Traverse down
-                $temp = $parent;
-                for ($i = 1; $i < count($keys); $i++) {
-                    if (isset($temp[$keys[$i]])) {
-                        $temp = $temp[$keys[$i]];
-                    } else {
-                        // Attempt to find if it's inside a loop or we just take the first one?
-                        // Nested repeaters are tricky without context of WHICH parent row we are in.
-                        // Usually, generic widgets on a page pull from the page's meta.
-                        // If it's a nested repeater, it might expect to return THE array.
-                        $temp = [];
-                        break;
-                    }
-                }
-                $rows = is_array($temp) ? $temp : [];
-            }
-        } else {
-            $rows = get_field($repeater_name);
-        }
-
-        if (!$rows || !is_array($rows)) {
+        if (empty($rows)) {
             return [];
         }
 
@@ -69,6 +35,10 @@ class Acf_Provider implements Provider
         $text_key = !empty($settings['dynamic_text_sub_field_manual']) ? $settings['dynamic_text_sub_field_manual'] : ($settings['dynamic_text_sub_field'] ?? 'text');
         $value_key = !empty($settings['dynamic_value_sub_field_manual']) ? $settings['dynamic_value_sub_field_manual'] : ($settings['dynamic_value_sub_field'] ?? 'value');
         $link_key = !empty($settings['dynamic_link_sub_field_manual']) ? $settings['dynamic_link_sub_field_manual'] : ($settings['dynamic_link_sub_field'] ?? 'link');
+
+        $text_key = $this->normalize_path($text_key);
+        $value_key = $this->normalize_path($value_key);
+        $link_key = $this->normalize_path($link_key);
 
         foreach ($rows as $row) {
             $text = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $text_key, $repeater_name);
@@ -104,5 +74,99 @@ class Acf_Provider implements Provider
         }
 
         return $items;
+    }
+
+    /**
+     * Resolve a slash-delimited field path to a flat list of repeater rows.
+     *
+     * Rows are always sourced from get_field(), which returns *formatted* values
+     * keyed by sub-field NAME. The loop helpers (have_rows()/get_row()) expose the
+     * *unformatted* value instead, whose rows are keyed by field KEY
+     * ('field_abc123') -- see ACF Pro pro/fields/class-acf-field-repeater.php,
+     * load_value(). Looking up a sub-field by name in that array always misses,
+     * which silently renders every row blank.
+     *
+     * An intermediate segment may be either a group (a single associative array)
+     * or a repeater (a list of rows); rows of a repeater ancestor are flattened.
+     *
+     * @param int    $post_id Post ID.
+     * @param string $path    Field path, e.g. 'benefits' or 'hub_variant_cards/proxy_faqs'.
+     * @return array List of rows keyed by sub-field name.
+     */
+    private function resolve_rows($post_id, $path)
+    {
+        $path = $this->normalize_path($path);
+        $rows = $this->walk_rows($post_id, $path);
+
+        // A seamless ACF clone shows up in a saved path but stores no level of
+        // its own, so the full path resolves to nothing. The trailing segment is
+        // the repeater's real name -- retry on that.
+        if (empty($rows) && false !== strpos($path, '/')) {
+            $segments = explode('/', $path);
+            $rows = $this->walk_rows($post_id, end($segments));
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Translate ACF field-key segments ('field_abc123') into field names.
+     *
+     * Settings saved against earlier builds stored field keys, while get_field()
+     * returns rows keyed by field name. Without this, key-based settings resolve
+     * to nothing.
+     *
+     * @param string $path Field path.
+     * @return string Path with every key segment replaced by its field name.
+     */
+    private function normalize_path($path)
+    {
+        $path = \Bodyloom\DynamicIconList\Provider_Factory::parse_source_path(is_string($path) ? $path : '')['path'];
+
+        if ('' === $path) {
+            return '';
+        }
+
+        $segments = [];
+
+        foreach (explode('/', $path) as $segment) {
+            if (0 === strpos($segment, 'field_') && function_exists('acf_get_field')) {
+                $field = acf_get_field($segment);
+
+                if (!empty($field['name'])) {
+                    $segment = $field['name'];
+                }
+            }
+
+            $segments[] = $segment;
+        }
+
+        return implode('/', $segments);
+    }
+
+    private function walk_rows($post_id, $path)
+    {
+        $segments = explode('/', $path);
+        $current = get_field(array_shift($segments), $post_id);
+
+        foreach ($segments as $segment) {
+            // A repeater ancestor yields a list of rows; a group yields a single array.
+            $parents = (is_array($current) && isset($current[0])) ? $current : [$current];
+            $next = [];
+
+            foreach ($parents as $parent) {
+                if (is_array($parent) && isset($parent[$segment]) && is_array($parent[$segment])) {
+                    $next = array_merge($next, array_values($parent[$segment]));
+                }
+            }
+
+            $current = $next;
+        }
+
+        if (!is_array($current)) {
+            return [];
+        }
+
+        return array_values(array_filter($current, 'is_array'));
     }
 }
