@@ -1,10 +1,10 @@
-=== Bodyloom Dynamic Icon List ===
+=== Vybose Repeater Icon List ===
 Contributors: auralume
 Tags: icon list, acf, metabox, pods, elementor
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Create static and dynamic icon lists for Elementor, the Block Editor, and shortc
 
 == Description ==
 
-Bodyloom Dynamic Icon List displays static list items or dynamic icon-list data from ACF Pro, Meta Box, and Pods repeater-style fields. It includes an Elementor widget, a dynamic block, and a shortcode so the same content pattern can be used across page builders and native WordPress content.
+Vybose Repeater Icon List displays static list items or dynamic icon-list data from ACF Pro, Meta Box, and Pods repeater-style fields. It includes an Elementor widget, a dynamic block, and a shortcode so the same content pattern can be used across page builders and native WordPress content.
 
 Features include:
 
@@ -29,24 +29,24 @@ The plugin does not connect to external services or load remote JavaScript or CS
 
 == Installation ==
 
-1. Upload `bodyloom-dynamic-icon-list` to the `/wp-content/plugins/` directory.
+1. Upload `vybose-repeater-icon-list` to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the Plugins menu in WordPress.
-3. Add the Bodyloom Icon List widget, the Bodyloom Icon List block, or the `[bodyloom_icon_list]` shortcode.
+3. Add the Vybose Icon List widget, the Vybose Icon List block, or the `[vybose_repeater_icon_list]` shortcode.
 
 == Usage ==
 
 = Elementor =
 
-Use the "Bodyloom Icon List" widget. Choose Static for manually managed list items, or Dynamic to use repeater data from ACF Pro, Meta Box, or Pods.
+Use the "Vybose Icon List" widget. Choose Static for manually managed list items, or Dynamic to use repeater data from ACF Pro, Meta Box, or Pods.
 
 = Block Editor =
 
-Use the "Bodyloom Icon List" block and configure the source, repeater field, text field, value field, and optional link field in the block sidebar.
+Use the "Vybose Icon List" block and configure the source, repeater field, text field, value field, and optional link field in the block sidebar.
 
 = Shortcode =
 
 Use a shortcode such as:
-`[bodyloom_icon_list data_type="dynamic" dynamic_source="acf" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]`
+`[vybose_repeater_icon_list data_type="dynamic" dynamic_source="acf" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]`
 
 == Frequently Asked Questions ==
 
@@ -64,12 +64,17 @@ Yes. Field pickers are provided where possible, but manual field-path fields rem
 
 == Screenshots ==
 
-1. Elementor elements panel: `assets/screenshots/elementor-elements-panel-bodyloom-icon-list-and-toggles-plugins.png`
-2. Icon list content controls: `assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-1.png`
-3. Additional icon list content controls: `assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-2.png`
-4. Rendered frontend example: `assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg`
+1. Elementor elements panel: `assets/screenshots/elementor-elements-panel-vybose-icon-list-and-toggles-plugins.png`
+2. Icon list content controls: `assets/screenshots/edit-vybose-icon-list-content-edit-panel-1.png`
+3. Additional icon list content controls: `assets/screenshots/edit-vybose-icon-list-content-edit-panel-2.png`
+4. Rendered frontend example: `assets/screenshots/vybose-repeater-icon-list-rendered.jpg`
 
 == Changelog ==
+
+= 2.0.0 =
+* Renamed the plugin to Vybose Repeater Icon List. The slug, text domain, namespace, constants, CSS classes, script handles, and block name all move to the vybose prefix.
+* Shortcode is now [vybose_repeater_icon_list].
+* Block is now vybose/repeater-icon-list.
 
 = 1.1.3 =
 * Hardened the field-discovery REST endpoint. It now checks the edit capability of the post type being requested, rather than a blanket edit_posts check.

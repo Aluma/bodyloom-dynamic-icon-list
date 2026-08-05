@@ -1,6 +1,6 @@
 <?php
 
-namespace Bodyloom\DynamicIconList;
+namespace Vybose\RepeaterIconList;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -21,8 +21,8 @@ class Renderer
         // Actually, the refactored plugin relies heavily on CSS variables set on the wrapper.
         // So for Shortcode, we should perform similar logic to output a wrapper with style="..." containing vars.
 
-        $id = uniqid('bodyloom-icon-list-');
-        $wrapper_class = 'bodyloom-widget-icon-list ' . $id;
+        $id = uniqid('vybose-icon-list-');
+        $wrapper_class = 'vybose-widget-icon-list ' . $id;
 
         $vars = self::get_css_variables($settings);
         $style_string = '';
@@ -30,14 +30,14 @@ class Renderer
             $style_string .= "$key: $value; ";
         }
 
-        $items_class = 'bodyloom-widget-icon-list-items';
-        $item_class = 'bodyloom-widget-icon-list-item';
+        $items_class = 'vybose-widget-icon-list-items';
+        $item_class = 'vybose-widget-icon-list-item';
 
         $output .= '<div class="' . esc_attr($wrapper_class) . '" style="' . esc_attr($style_string) . '">';
 
         if (!empty($settings['title'])) {
             $tag = self::validate_title_tag($settings['title_tag'] ?? 'h3');
-            $output .= '<' . $tag . ' class="bodyloom-widget-icon-list-title">' . esc_html($settings['title']) . '</' . $tag . '>';
+            $output .= '<' . $tag . ' class="vybose-widget-icon-list-title">' . esc_html($settings['title']) . '</' . $tag . '>';
         }
 
         $output .= '<ul class="' . esc_attr($items_class) . '">';
@@ -62,11 +62,11 @@ class Renderer
 
             // Full Width Link
             if ($has_link && 'full_width' === $link_type) {
-                $output .= '<a class="bodyloom-widget-icon-list-item-link" ' . $link_attrs . '>';
+                $output .= '<a class="vybose-widget-icon-list-item-link" ' . $link_attrs . '>';
             }
 
             // Wrapper for content
-            $output .= '<span class="bodyloom-widget-icon-list-item-text-wrap">';
+            $output .= '<span class="vybose-widget-icon-list-item-text-wrap">';
 
             // Icon
             $has_icon = false;
@@ -85,7 +85,7 @@ class Renderer
             }
 
             if ($has_icon) {
-                $output .= '<span class="bodyloom-widget-icon-list-item-icon">';
+                $output .= '<span class="vybose-widget-icon-list-item-icon">';
                 // Render Icon
                 if (isset($settings['global_marker']) && 'numeric' !== $settings['global_marker']) {
                     // Try to render icon markup
@@ -98,8 +98,8 @@ class Renderer
             }
 
             // Text
-            $output .= '<span class="bodyloom-widget-icon-list-item-text-inner">';
-            $output .= '<span class="bodyloom-widget-icon-list-item-text">';
+            $output .= '<span class="vybose-widget-icon-list-item-text-inner">';
+            $output .= '<span class="vybose-widget-icon-list-item-text">';
             if ($has_link && 'text' === $link_type) {
                 $output .= '<a ' . $link_attrs . '>' . wp_kses_post($item['text']) . '</a>';
             } else {
@@ -109,7 +109,7 @@ class Renderer
 
             // Value
             if (!empty($item['value'])) {
-                $output .= '<span class="bodyloom-widget-icon-list-item-value">';
+                $output .= '<span class="vybose-widget-icon-list-item-value">';
                 if ($has_link && 'value' === $link_type) {
                     $output .= '<a ' . $link_attrs . '>' . wp_kses_post($item['value']) . '</a>';
                 } else {
@@ -144,7 +144,7 @@ class Renderer
             $unit = $settings['space_between']['unit'] ?? 'px';
 
             if (in_array($unit, ['px', 'em'], true)) {
-                $vars['--bodyloom-icon-list-items-gap'] = 'calc(' . (float) $settings['space_between']['size'] . $unit . ' / 2)';
+                $vars['--vybose-icon-list-items-gap'] = 'calc(' . (float) $settings['space_between']['size'] . $unit . ' / 2)';
             }
         }
 

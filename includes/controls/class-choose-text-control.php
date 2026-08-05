@@ -1,5 +1,5 @@
 <?php
-namespace Bodyloom\DynamicIconList\Controls;
+namespace Vybose\RepeaterIconList\Controls;
 
 use Elementor\Base_Data_Control;
 
@@ -51,8 +51,8 @@ class Choose_Text_Control extends Base_Data_Control
     public function enqueue()
     {
         // Enqueue styles to make it look like standard buttons
-        wp_register_style('bodyloom-choose-text-control', false, [], BODYLOOM_DYNAMIC_ICON_LIST_VERSION);
-        wp_enqueue_style('bodyloom-choose-text-control');
+        wp_register_style('vybose-choose-text-control', false, [], VYBOSE_REPEATER_ICON_LIST_VERSION);
+        wp_enqueue_style('vybose-choose-text-control');
         $css = "
             .elementor-control-type-choose_text .elementor-choices {
                 display: flex;
@@ -74,6 +74,6 @@ class Choose_Text_Control extends Base_Data_Control
                 color: #fff;
             }
         ";
-        wp_add_inline_style('bodyloom-choose-text-control', $css);
+        wp_add_inline_style('vybose-choose-text-control', $css);
     }
 }

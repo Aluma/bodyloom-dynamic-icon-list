@@ -1,6 +1,6 @@
 <?php
 
-namespace Bodyloom\DynamicIconList;
+namespace Vybose\RepeaterIconList;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -11,7 +11,7 @@ class Shortcode
 
     public function __construct()
     {
-        add_shortcode('bodyloom_icon_list', [$this, 'render']);
+        add_shortcode('vybose_repeater_icon_list', [$this, 'render']);
     }
 
     public function render($atts)
@@ -20,7 +20,7 @@ class Shortcode
             'data_type' => 'static',
             'title' => '',
             // Add defaults for other settings
-        ], $atts, 'bodyloom_icon_list');
+        ], $atts, 'vybose_repeater_icon_list');
 
         // Convert simple atts to settings array structure expected by Provider/Renderer
         $settings = $atts;
@@ -30,7 +30,7 @@ class Shortcode
         // For simplicity, this shortcode might be primarily for Dynamic usage or pre-defined usages.
         // If the user wants to define items in shortcode, it gets complex (JSON string?).
 
-        wp_enqueue_style('bodyloom-dynamic-icon-list');
+        wp_enqueue_style('vybose-repeater-icon-list');
 
         $provider = Provider_Factory::get_provider($settings);
         $items = $provider->get_items($settings);

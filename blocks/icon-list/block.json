@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "bodyloom/dynamic-icon-list",
+  "name": "vybose/repeater-icon-list",
   "version": "1.1.0",
-  "title": "Bodyloom Icon List",
+  "title": "Vybose Icon List",
   "category": "widgets",
   "icon": "list-view",
   "description": "A dynamic icon list block supporting ACF, Pods, and Meta Box.",
@@ -19,7 +19,7 @@
       "padding": true
     }
   },
-  "textdomain": "bodyloom-dynamic-icon-list",
+  "textdomain": "vybose-repeater-icon-list",
   "editorScript": "file:./block.js",
   "attributes": {
     "title": {
@@ -91,6 +91,6 @@
       "default": 1
     }
   },
-  "style": "bodyloom-dynamic-icon-list",
+  "style": "vybose-repeater-icon-list",
   "render": "file:./render.php"
 }

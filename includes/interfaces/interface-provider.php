@@ -1,6 +1,6 @@
 <?php
 
-namespace Bodyloom\DynamicIconList\Interfaces;
+namespace Vybose\RepeaterIconList\Interfaces;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly

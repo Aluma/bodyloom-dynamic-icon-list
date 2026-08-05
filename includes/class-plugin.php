@@ -1,6 +1,6 @@
 <?php
 
-namespace Bodyloom\DynamicIconList;
+namespace Vybose\RepeaterIconList;
 
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
@@ -34,38 +34,47 @@ class Plugin
 	{
 		// Register Style
 		wp_register_style(
-			'bodyloom-dynamic-icon-list',
-			BODYLOOM_DYNAMIC_ICON_LIST_URL . 'assets/css/bodyloom-dynamic-icon-list.css',
+			'vybose-repeater-icon-list',
+			VYBOSE_REPEATER_ICON_LIST_URL . 'assets/css/vybose-repeater-icon-list.css',
 			[],
-			BODYLOOM_DYNAMIC_ICON_LIST_VERSION
+			VYBOSE_REPEATER_ICON_LIST_VERSION
 		);
 
 		// Register Shortcode
-		add_shortcode('bodyloom_icon_list', [new Shortcode(), 'render']);
+		add_shortcode('vybose_repeater_icon_list', [new Shortcode(), 'render']);
 
 		// Register Block
-		register_block_type(BODYLOOM_DYNAMIC_ICON_LIST_PATH . 'blocks/icon-list');
+		register_block_type(VYBOSE_REPEATER_ICON_LIST_PATH . 'blocks/icon-list');
 	}
 
 	public function register_controls($controls_manager)
 	{
-		require_once BODYLOOM_DYNAMIC_ICON_LIST_PATH . 'includes/controls/class-choose-text-control.php';
-		$controls_manager->register(new \Bodyloom\DynamicIconList\Controls\Choose_Text_Control());
+		require_once VYBOSE_REPEATER_ICON_LIST_PATH . 'includes/controls/class-choose-text-control.php';
+		$controls_manager->register(new \Vybose\RepeaterIconList\Controls\Choose_Text_Control());
 	}
 
 	public function register_elementor_widgets($widgets_manager)
 	{
-		$widget_file = BODYLOOM_DYNAMIC_ICON_LIST_PATH . 'widgets/elementor/class-icon-list-widget.php';
+		$widget_file = VYBOSE_REPEATER_ICON_LIST_PATH . 'widgets/elementor/class-icon-list-widget.php';
 		if (file_exists($widget_file)) {
 			require_once $widget_file;
-			$widgets_manager->register(new \Bodyloom\DynamicIconList\Widgets\Elementor\Icon_List_Widget());
+			$widgets_manager->register(new \Vybose\RepeaterIconList\Widgets\Elementor\Icon_List_Widget());
+
+			// Resolves documents saved before the 2.0.0 rename. Absent from the
+			// WordPress.org package, where no legacy data exists.
+			$legacy_alias = VYBOSE_REPEATER_ICON_LIST_PATH . 'includes/compat/class-legacy-widget-alias.php';
+
+			if (file_exists($legacy_alias)) {
+				require_once $legacy_alias;
+				$widgets_manager->register(new \Vybose\RepeaterIconList\Compat\Legacy_Widget_Alias());
+			}
 		}
 	}
 
 	public function register_rest_routes()
 	{
 		register_rest_route(
-			'bodyloom-dynamic-icon-list/v1',
+			'vybose-repeater-icon-list/v1',
 			'/fields',
 			[
 				'methods' => 'GET',

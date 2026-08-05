@@ -10,13 +10,13 @@
     var useState = element.useState;
     var __ = i18n.__;
 
-    registerBlockType('bodyloom/dynamic-icon-list', {
+    registerBlockType('vybose/repeater-icon-list', {
         edit: function (props) {
             var attributes = props.attributes;
             var setAttributes = props.setAttributes;
             var fieldState = useState({
-                repeaters: [{ label: __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'), value: '' }],
-                leafFields: [{ label: __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'), value: '' }]
+                repeaters: [{ label: __('Manual entry / no discovered field', 'vybose-repeater-icon-list'), value: '' }],
+                leafFields: [{ label: __('Manual entry / no discovered field', 'vybose-repeater-icon-list'), value: '' }]
             });
             var fieldOptions = fieldState[0];
             var setFieldOptions = fieldState[1];
@@ -26,9 +26,9 @@
                     return;
                 }
 
-                window.wp.apiFetch({ path: '/bodyloom-dynamic-icon-list/v1/fields' }).then(function (response) {
-                    var repeaters = [{ label: __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'), value: '' }];
-                    var leafFields = [{ label: __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'), value: '' }];
+                window.wp.apiFetch({ path: '/vybose-repeater-icon-list/v1/fields' }).then(function (response) {
+                    var repeaters = [{ label: __('Manual entry / no discovered field', 'vybose-repeater-icon-list'), value: '' }];
+                    var leafFields = [{ label: __('Manual entry / no discovered field', 'vybose-repeater-icon-list'), value: '' }];
                     var sources = response && response.sources ? response.sources : {};
 
                     Object.keys(sources).forEach(function (source) {
@@ -53,80 +53,80 @@
                     });
                 }).catch(function () {
                     setFieldOptions({
-                        repeaters: [{ label: __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'), value: '' }],
-                        leafFields: [{ label: __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'), value: '' }]
+                        repeaters: [{ label: __('Manual entry / no discovered field', 'vybose-repeater-icon-list'), value: '' }],
+                        leafFields: [{ label: __('Manual entry / no discovered field', 'vybose-repeater-icon-list'), value: '' }]
                     });
                 });
             }, []);
 
             return [
                 el(InspectorControls, { key: 'inspector' },
-                    el(PanelBody, { title: __('Settings', 'bodyloom-dynamic-icon-list'), initialOpen: true },
+                    el(PanelBody, { title: __('Settings', 'vybose-repeater-icon-list'), initialOpen: true },
                         el(TextControl, {
-                            label: __('Title', 'bodyloom-dynamic-icon-list'),
+                            label: __('Title', 'vybose-repeater-icon-list'),
                             value: attributes.title,
                             onChange: function (val) { setAttributes({ title: val }); }
                         }),
                         el(SelectControl, {
-                            label: __('Data Type', 'bodyloom-dynamic-icon-list'),
+                            label: __('Data Type', 'vybose-repeater-icon-list'),
                             value: attributes.data_type,
                             options: [
-                                { label: __('Static', 'bodyloom-dynamic-icon-list'), value: 'static' },
-                                { label: __('Dynamic', 'bodyloom-dynamic-icon-list'), value: 'dynamic' }
+                                { label: __('Static', 'vybose-repeater-icon-list'), value: 'static' },
+                                { label: __('Dynamic', 'vybose-repeater-icon-list'), value: 'dynamic' }
                             ],
                             onChange: function (val) { setAttributes({ data_type: val }); }
                         }),
                         el(SelectControl, {
-                            label: __('Dynamic Source', 'bodyloom-dynamic-icon-list'),
+                            label: __('Dynamic Source', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_source,
                             options: [
-                                { label: __('ACF', 'bodyloom-dynamic-icon-list'), value: 'acf' },
-                                { label: __('Pods', 'bodyloom-dynamic-icon-list'), value: 'pods' },
-                                { label: __('Meta Box', 'bodyloom-dynamic-icon-list'), value: 'metabox' }
+                                { label: __('ACF', 'vybose-repeater-icon-list'), value: 'acf' },
+                                { label: __('Pods', 'vybose-repeater-icon-list'), value: 'pods' },
+                                { label: __('Meta Box', 'vybose-repeater-icon-list'), value: 'metabox' }
                             ],
                             onChange: function (val) { setAttributes({ dynamic_source: val }); }
                         }),
                         el(SelectControl, {
-                            label: __('Discovered Repeater Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Discovered Repeater Field', 'vybose-repeater-icon-list'),
                             value: attributes.acf_repeater_field_name,
                             options: fieldOptions.repeaters,
                             onChange: function (val) { setAttributes({ acf_repeater_field_name: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Manual Repeater Field Path', 'bodyloom-dynamic-icon-list'),
+                            label: __('Manual Repeater Field Path', 'vybose-repeater-icon-list'),
                             value: attributes.acf_repeater_field_name_manual,
                             onChange: function (val) { setAttributes({ acf_repeater_field_name_manual: val }); }
                         }),
                         el(SelectControl, {
-                            label: __('Discovered Text Sub-Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Discovered Text Sub-Field', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_text_sub_field,
                             options: fieldOptions.leafFields,
                             onChange: function (val) { setAttributes({ dynamic_text_sub_field: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Manual Text Sub-Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Manual Text Sub-Field', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_text_sub_field_manual,
                             onChange: function (val) { setAttributes({ dynamic_text_sub_field_manual: val }); }
                         }),
                         el(SelectControl, {
-                            label: __('Discovered Value Sub-Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Discovered Value Sub-Field', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_value_sub_field,
                             options: fieldOptions.leafFields,
                             onChange: function (val) { setAttributes({ dynamic_value_sub_field: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Manual Value Sub-Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Manual Value Sub-Field', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_value_sub_field_manual,
                             onChange: function (val) { setAttributes({ dynamic_value_sub_field_manual: val }); }
                         }),
                         el(SelectControl, {
-                            label: __('Discovered Link Sub-Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Discovered Link Sub-Field', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_link_sub_field,
                             options: fieldOptions.leafFields,
                             onChange: function (val) { setAttributes({ dynamic_link_sub_field: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Manual Link Sub-Field', 'bodyloom-dynamic-icon-list'),
+                            label: __('Manual Link Sub-Field', 'vybose-repeater-icon-list'),
                             value: attributes.dynamic_link_sub_field_manual,
                             onChange: function (val) { setAttributes({ dynamic_link_sub_field_manual: val }); }
                         })
@@ -134,7 +134,7 @@
                 ),
                 el('div', { className: props.className },
                     el(ServerSideRender, {
-                        block: 'bodyloom/dynamic-icon-list',
+                        block: 'vybose/repeater-icon-list',
                         attributes: attributes
                     })
                 )

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bodyloom\DynamicIconList\Providers;
+namespace Vybose\RepeaterIconList\Providers;
 
-use Bodyloom\DynamicIconList\Interfaces\Provider;
+use Vybose\RepeaterIconList\Interfaces\Provider;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly

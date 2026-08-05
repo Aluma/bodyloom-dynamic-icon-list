@@ -1,8 +1,8 @@
 <?php
 
-namespace Bodyloom\DynamicIconList\Providers;
+namespace Vybose\RepeaterIconList\Providers;
 
-use Bodyloom\DynamicIconList\Interfaces\Provider;
+use Vybose\RepeaterIconList\Interfaces\Provider;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -17,8 +17,8 @@ class Acf_Provider implements Provider
             return [];
         }
 
-        $repeater_name = \Bodyloom\DynamicIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name_manual');
-        $repeater_name = $repeater_name ?: \Bodyloom\DynamicIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name');
+        $repeater_name = \Vybose\RepeaterIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name_manual');
+        $repeater_name = $repeater_name ?: \Vybose\RepeaterIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name');
 
         if (empty($repeater_name)) {
             return [];
@@ -41,9 +41,9 @@ class Acf_Provider implements Provider
         $link_key = $this->normalize_path($link_key);
 
         foreach ($rows as $row) {
-            $text = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $text_key, $repeater_name);
-            $value = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $value_key, $repeater_name);
-            $link_raw = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $link_key, $repeater_name);
+            $text = \Vybose\RepeaterIconList\Provider_Factory::get_nested_value($row, $text_key, $repeater_name);
+            $value = \Vybose\RepeaterIconList\Provider_Factory::get_nested_value($row, $value_key, $repeater_name);
+            $link_raw = \Vybose\RepeaterIconList\Provider_Factory::get_nested_value($row, $link_key, $repeater_name);
 
             // Normalize Link
             $link = [
@@ -121,7 +121,7 @@ class Acf_Provider implements Provider
      */
     private function normalize_path($path)
     {
-        $path = \Bodyloom\DynamicIconList\Provider_Factory::parse_source_path(is_string($path) ? $path : '')['path'];
+        $path = \Vybose\RepeaterIconList\Provider_Factory::parse_source_path(is_string($path) ? $path : '')['path'];
 
         if ('' === $path) {
             return '';

@@ -14,5 +14,5 @@ return [
         'wp-i18n',
         'wp-server-side-render',
     ],
-    'version' => defined('BODYLOOM_DYNAMIC_ICON_LIST_VERSION') ? BODYLOOM_DYNAMIC_ICON_LIST_VERSION : '1.1.0',
+    'version' => defined('VYBOSE_REPEATER_ICON_LIST_VERSION') ? VYBOSE_REPEATER_ICON_LIST_VERSION : '1.1.0',
 ];

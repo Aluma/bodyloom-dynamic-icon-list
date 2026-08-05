@@ -1,8 +1,8 @@
 <?php
 /**
- * Bodyloom Icon-List Plugin v1
+ * Vybose Icon-List Plugin v1
  **/
-namespace Bodyloom\DynamicIconList\Widgets\Elementor;
+namespace Vybose\RepeaterIconList\Widgets\Elementor;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -13,8 +13,8 @@ use Elementor\Icons_Manager;
 use Elementor\Plugin;
 use Elementor\Repeater;
 use Elementor\Utils;
-use Bodyloom\DynamicIconList\Field_Discovery;
-use Bodyloom\DynamicIconList\Provider_Factory;
+use Vybose\RepeaterIconList\Field_Discovery;
+use Vybose\RepeaterIconList\Provider_Factory;
 
 
 if (!defined('ABSPATH')) {
@@ -43,7 +43,7 @@ class Icon_List_Widget extends Widget_Base
      */
     public function get_name()
     {
-        return 'bodyloom-dynamic-icon-list';
+        return 'vybose-repeater-icon-list';
     }
 
     /**
@@ -57,7 +57,7 @@ class Icon_List_Widget extends Widget_Base
      */
     public function get_title()
     {
-        return __('Bodyloom Icon List', 'bodyloom-dynamic-icon-list');
+        return __('Vybose Icon List', 'vybose-repeater-icon-list');
     }
 
     /**
@@ -114,7 +114,7 @@ class Icon_List_Widget extends Widget_Base
     public function get_style_depends(): array
     {
         return [
-            'bodyloom-dynamic-icon-list',
+            'vybose-repeater-icon-list',
         ];
     }
 
@@ -134,7 +134,7 @@ class Icon_List_Widget extends Widget_Base
     protected function get_html_wrapper_class()
     {
         $parent_classes = explode(' ', parent::get_html_wrapper_class());
-        $widget_class = 'bodyloom-widget-icon-list';
+        $widget_class = 'vybose-widget-icon-list';
 
         if (!in_array($widget_class, $parent_classes, true)) {
             $parent_classes[] = $widget_class;
@@ -176,21 +176,21 @@ class Icon_List_Widget extends Widget_Base
     {
         $this->start_controls_section(
             'section_list',
-            ['label' => __('Icon List', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Icon List', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'data_type',
             [
-                'label' => __('Data Type', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Data Type', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'static' => [
-                        'title' => __('Static', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Static', 'vybose-repeater-icon-list'),
                     ],
                     'dynamic' => [
-                        'title' => __('Dynamic', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Dynamic', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'static',
@@ -206,7 +206,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'items_heading',
             [
-                'label' => __('Items', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Items', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -215,20 +215,20 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'item_layout',
             [
-                'label' => __('Layout', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Layout', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'row' => [
-                        'title' => __('Row', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Row', 'vybose-repeater-icon-list'),
                     ],
                     'column' => [
-                        'title' => __('Column', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Column', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'row',
                 'toggle' => false,
-                'prefix_class' => 'bodyloom-widget-layout-',
+                'prefix_class' => 'vybose-widget-layout-',
                 'render_type' => 'template',
             ]
         );
@@ -236,29 +236,29 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'items_align',
             [
-                'label' => __('Alignment', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Alignment', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Left', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Center', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Right', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-right',
                     ],
                     'stretch' => [
-                        'title' => __('Stretch', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Stretch', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-stretch',
                     ],
                 ],
                 'default' => 'stretch',
                 'toggle' => false,
-                'prefix_class' => 'bodyloom-widget%s-align-',
+                'prefix_class' => 'vybose-widget%s-align-',
                 'condition' => ['item_layout' => 'row'],
                 'render_type' => 'template',
             ]
@@ -267,25 +267,25 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'items_align_column',
             [
-                'label' => __('Alignment', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Alignment', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Left', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Center', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Right', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-right',
                     ],
                 ],
                 'default' => 'left',
                 'toggle' => false,
-                'prefix_class' => 'bodyloom-widget%s-align-column-',
+                'prefix_class' => 'vybose-widget%s-align-column-',
                 'condition' => ['item_layout' => 'column'],
                 'render_type' => 'template',
             ]
@@ -294,20 +294,20 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'item_direction',
             [
-                'label' => __('Direction', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Direction', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'default' => [
-                        'title' => __('Default', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Default', 'vybose-repeater-icon-list'),
                     ],
                     'reverse' => [
-                        'title' => __('Reverse', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Reverse', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'default',
                 'toggle' => false,
-                'prefix_class' => 'bodyloom-widget-direction-',
+                'prefix_class' => 'vybose-widget-direction-',
                 'render_type' => 'template',
             ]
         );
@@ -315,7 +315,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'value_heading',
             [
-                'label' => __('Value', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Value', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -324,21 +324,21 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'value_position',
             [
-                'label' => __('Position', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Position', 'vybose-repeater-icon-list'),
                 'type' => 'choose_text',
                 'options' => [
                     'bottom' => [
-                        'title' => __('Bottom', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Bottom', 'vybose-repeater-icon-list'),
                     ],
                     'inline' => [
-                        'title' => __('Inline', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Inline', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'bottom',
                 'label_block' => false,
                 'toggle' => false,
 
-                'prefix_class' => 'bodyloom-value-position-',
+                'prefix_class' => 'vybose-value-position-',
                 'render_type' => 'template',
             ]
         );
@@ -346,7 +346,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'marker_heading',
             [
-                'label' => __('Marker', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Marker', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -355,20 +355,20 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'global_marker',
             [
-                'label' => __('Type', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Type', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'icon' => [
-                        'title' => __('Icon', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Icon', 'vybose-repeater-icon-list'),
                     ],
                     'numeric' => [
-                        'title' => __('Numeric', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Numeric', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'icon',
                 'toggle' => false,
-                'prefix_class' => 'bodyloom-widget-marker-element-',
+                'prefix_class' => 'vybose-widget-marker-element-',
                 'render_type' => 'template',
             ]
         );
@@ -376,7 +376,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'global_icon',
             [
-                'label' => __('Global Icon', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Global Icon', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => Controls_Manager::ICONS,
                 'default' => [
@@ -391,22 +391,22 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'marker_view',
             [
-                'label' => __('View', 'bodyloom-dynamic-icon-list'),
+                'label' => __('View', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'default' => [
-                        'title' => __('Default', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Default', 'vybose-repeater-icon-list'),
                     ],
                     'stacked' => [
-                        'title' => __('Stacked', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Stacked', 'vybose-repeater-icon-list'),
                     ],
                     'framed' => [
-                        'title' => __('Framed', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Framed', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'default',
-                'prefix_class' => 'bodyloom-widget-marker-view-',
+                'prefix_class' => 'vybose-widget-marker-view-',
                 'toggle' => false,
                 'render_type' => 'template',
             ]
@@ -415,22 +415,22 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'marker_shape',
             [
-                'label' => __('Shape', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Shape', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'circle' => [
-                        'title' => __('Circle', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Circle', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-circle-o',
                     ],
                     'square' => [
-                        'title' => __('Square', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Square', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-square-o',
                     ],
                 ],
                 'default' => 'circle',
                 'condition' => ['marker_view!' => 'default'],
-                'prefix_class' => 'bodyloom-widget-marker-shape-',
+                'prefix_class' => 'vybose-widget-marker-shape-',
                 'toggle' => false,
                 'render_type' => 'template',
             ]
@@ -439,18 +439,18 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'link_click',
             [
-                'label' => __('Apply Link To:', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Apply Link To:', 'vybose-repeater-icon-list'),
                 'label_block' => true,
                 'type' => 'choose_text',
                 'options' => [
                     'text' => [
-                        'title' => __('Text', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Text', 'vybose-repeater-icon-list'),
                     ],
                     'value' => [
-                        'title' => __('Value', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Value', 'vybose-repeater-icon-list'),
                     ],
                     'full_width' => [
-                        'title' => __('Full Width', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Full Width', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'text',
@@ -463,7 +463,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'title_heading',
             [
-                'label' => __('Title', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Title', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -472,7 +472,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'title',
             [
-                'label' => __('Title', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Title', 'vybose-repeater-icon-list'),
                 'label_block' => true,
                 'show_label' => false,
                 'type' => Controls_Manager::TEXT,
@@ -483,7 +483,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'title_tag',
             [
-                'label' => __('HTML Tag', 'bodyloom-dynamic-icon-list'),
+                'label' => __('HTML Tag', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     'h1' => 'H1',
@@ -519,7 +519,7 @@ class Icon_List_Widget extends Widget_Base
         $repeater->add_control(
             'text',
             [
-                'label' => __('Text', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Text', 'vybose-repeater-icon-list'),
                 'label_block' => true,
                 'type' => Controls_Manager::TEXT,
                 'dynamic' => ['active' => true],
@@ -529,7 +529,7 @@ class Icon_List_Widget extends Widget_Base
         $repeater->add_control(
             'value',
             [
-                'label' => __('Value', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Value', 'vybose-repeater-icon-list'),
                 'label_block' => true,
                 'type' => Controls_Manager::TEXT,
                 'dynamic' => ['active' => true],
@@ -539,7 +539,7 @@ class Icon_List_Widget extends Widget_Base
         $repeater->add_control(
             'link',
             [
-                'label' => __('Link', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Link', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::URL,
                 'dynamic' => ['active' => true],
             ]
@@ -548,15 +548,15 @@ class Icon_List_Widget extends Widget_Base
         $repeater->add_control(
             'icon_type',
             [
-                'label' => __('Icon Type', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Icon Type', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => 'choose_text',
                 'options' => [
                     'global' => [
-                        'title' => __('Global', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Global', 'vybose-repeater-icon-list'),
                     ],
                     'custom' => [
-                        'title' => __('Custom', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Custom', 'vybose-repeater-icon-list'),
                     ],
                 ],
                 'default' => 'global',
@@ -568,7 +568,7 @@ class Icon_List_Widget extends Widget_Base
         $repeater->add_control(
             'icon',
             [
-                'label' => __('Custom Icon', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Custom Icon', 'vybose-repeater-icon-list'),
                 'label_block' => false,
                 'type' => Controls_Manager::ICONS,
                 'skin' => 'inline',
@@ -579,7 +579,7 @@ class Icon_List_Widget extends Widget_Base
         $repeater->add_control(
             'text_nowrap',
             [
-                'label' => __('Prevent Text Wrapping', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Prevent Text Wrapping', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SWITCHER,
                 'selectors_dictionary' => [
                     'yes' => 'nowrap',
@@ -587,9 +587,9 @@ class Icon_List_Widget extends Widget_Base
                 ],
                 'default' => '',
                 'render_type' => 'ui',
-                'description' => __('Display text in a single line without wrapping.', 'bodyloom-dynamic-icon-list'),
+                'description' => __('Display text in a single line without wrapping.', 'vybose-repeater-icon-list'),
                 'selectors' => [
-                    '{{WRAPPER}} .bodyloom-widget-icon-list-item-text-inner {{CURRENT_ITEM}}' => '--bodyloom-text-nowrap: {{VALUE}}',
+                    '{{WRAPPER}} .vybose-widget-icon-list-item-text-inner {{CURRENT_ITEM}}' => '--vybose-text-nowrap: {{VALUE}}',
                 ],
             ]
         );
@@ -597,10 +597,10 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'icon_list',
             [
-                'label' => __('Items', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Items', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::REPEATER,
                 'fields' => $repeater->get_controls(),
-                'title_field' => '<span class="bodyloom-repeat-item-num"></span>. {{{ text }}} {{{ elementor.helpers.renderIcon( this, icon, {}, "i", "panel" ) }}}',
+                'title_field' => '<span class="vybose-repeat-item-num"></span>. {{{ text }}} {{{ elementor.helpers.renderIcon( this, icon, {}, "i", "panel" ) }}}',
                 'condition' => ['data_type' => 'static'],
             ]
         );
@@ -618,12 +618,12 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_source',
             array(
-                'label' => __('Dynamic Source', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Dynamic Source', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT,
                 'options' => array(
-                    'acf' => __('ACF', 'bodyloom-dynamic-icon-list'),
-                    'pods' => __('Pods', 'bodyloom-dynamic-icon-list'),
-                    'metabox' => __('Meta Box', 'bodyloom-dynamic-icon-list'),
+                    'acf' => __('ACF', 'vybose-repeater-icon-list'),
+                    'pods' => __('Pods', 'vybose-repeater-icon-list'),
+                    'metabox' => __('Meta Box', 'vybose-repeater-icon-list'),
                 ),
                 'default' => 'acf',
                 'condition' => array('data_type' => 'dynamic'),
@@ -633,10 +633,10 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'acf_repeater_field_name',
             array(
-                'label' => __('Repeater Field Path', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Repeater Field Path', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => Field_Discovery::get_repeater_options(get_post_type() ?: 'post'),
-                'description' => __('Choose a discovered field or use the manual field path fallback below.', 'bodyloom-dynamic-icon-list'),
+                'description' => __('Choose a discovered field or use the manual field path fallback below.', 'vybose-repeater-icon-list'),
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
             )
@@ -645,9 +645,9 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'acf_repeater_field_name_manual',
             array(
-                'label' => __('Manual Repeater Field Path', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Manual Repeater Field Path', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::TEXT,
-                'description' => __('Used when no discovered field is selected. Supports nested paths such as parent/child.', 'bodyloom-dynamic-icon-list'),
+                'description' => __('Used when no discovered field is selected. Supports nested paths such as parent/child.', 'vybose-repeater-icon-list'),
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
             )
@@ -656,7 +656,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_text_sub_field',
             array(
-                'label' => __('Text Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Text Sub-field Key', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => Field_Discovery::get_leaf_field_options(get_post_type() ?: 'post'),
                 'label_block' => true,
@@ -667,7 +667,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_text_sub_field_manual',
             array(
-                'label' => __('Manual Text Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Manual Text Sub-field Key', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
@@ -677,7 +677,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_value_sub_field',
             array(
-                'label' => __('Value Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Value Sub-field Key', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => Field_Discovery::get_leaf_field_options(get_post_type() ?: 'post'),
                 'label_block' => true,
@@ -688,7 +688,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_value_sub_field_manual',
             array(
-                'label' => __('Manual Value Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Manual Value Sub-field Key', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
@@ -698,7 +698,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_link_sub_field',
             array(
-                'label' => __('Link Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Link Sub-field Key', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => Field_Discovery::get_leaf_field_options(get_post_type() ?: 'post'),
                 'label_block' => true,
@@ -709,7 +709,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'dynamic_link_sub_field_manual',
             array(
-                'label' => __('Manual Link Sub-field Key', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Manual Link Sub-field Key', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'label_block' => true,
                 'condition' => array('data_type' => 'dynamic'),
@@ -729,7 +729,7 @@ class Icon_List_Widget extends Widget_Base
         $this->start_controls_section(
             'section_list_style',
             [
-                'label' => __('List', 'bodyloom-dynamic-icon-list'),
+                'label' => __('List', 'vybose-repeater-icon-list'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -737,7 +737,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'space_between',
             [
-                'label' => __('Space Between', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Space Between', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -745,7 +745,7 @@ class Icon_List_Widget extends Widget_Base
                     'em' => ['max' => 5],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-items-gap: calc({{SIZE}}{{UNIT}}/2)',
+                    '{{WRAPPER}}' => '--vybose-icon-list-items-gap: calc({{SIZE}}{{UNIT}}/2)',
                 ],
             ]
         );
@@ -753,7 +753,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'columns_heading',
             [
-                'label' => __('Columns', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Columns', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -762,12 +762,12 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'columns',
             [
-                'label' => __('Count', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Count', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::NUMBER,
                 'min' => 1,
                 'max' => 6,
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-columns-count: {{VALUE}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-columns-count: {{VALUE}}',
                 ],
             ]
         );
@@ -775,7 +775,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'columns_gap',
             [
-                'label' => __('Gap', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Gap', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em', '%'],
                 'range' => [
@@ -784,7 +784,7 @@ class Icon_List_Widget extends Widget_Base
                     '%' => ['max' => 30],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-columns-gap: {{SIZE}}{{UNIT}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-columns-gap: {{SIZE}}{{UNIT}}',
                 ],
                 'condition' => ['columns!' => ''],
             ]
@@ -793,17 +793,17 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'columns_rule_style',
             [
-                'label' => __('Separator Style', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Separator Style', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    '' => __('None', 'bodyloom-dynamic-icon-list'),
-                    'solid' => __('Solid', 'bodyloom-dynamic-icon-list'),
-                    'double' => __('Double', 'bodyloom-dynamic-icon-list'),
-                    'dotted' => __('Dotted', 'bodyloom-dynamic-icon-list'),
-                    'dashed' => __('Dashed', 'bodyloom-dynamic-icon-list'),
+                    '' => __('None', 'vybose-repeater-icon-list'),
+                    'solid' => __('Solid', 'vybose-repeater-icon-list'),
+                    'double' => __('Double', 'vybose-repeater-icon-list'),
+                    'dotted' => __('Dotted', 'vybose-repeater-icon-list'),
+                    'dashed' => __('Dashed', 'vybose-repeater-icon-list'),
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-columns-rule-style: {{VALUE}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-columns-rule-style: {{VALUE}}',
                 ],
                 'condition' => ['columns!' => ''],
             ]
@@ -812,7 +812,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'columns_rule_weight',
             [
-                'label' => __('Separator Weight', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Separator Weight', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -821,7 +821,7 @@ class Icon_List_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-columns-rule-weight: {{SIZE}}{{UNIT}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-columns-rule-weight: {{SIZE}}{{UNIT}}',
                 ],
                 'condition' => [
                     'columns!' => '',
@@ -833,10 +833,10 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'columns_rule_color',
             [
-                'label' => __('Separator Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Separator Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-columns-rule-color: {{VALUE}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-columns-rule-color: {{VALUE}}',
                 ],
                 'condition' => [
                     'columns!' => '',
@@ -848,13 +848,13 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'divider',
             [
-                'label' => __('Divider', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Divider', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Off', 'bodyloom-dynamic-icon-list'),
-                'label_on' => __('On', 'bodyloom-dynamic-icon-list'),
+                'label_off' => __('Off', 'vybose-repeater-icon-list'),
+                'label_on' => __('On', 'vybose-repeater-icon-list'),
                 'separator' => 'before',
                 'selectors' => [
-                    '{{WRAPPER}} .bodyloom-widget-icon-list-item:not(:last-child):after' => 'content: ""',
+                    '{{WRAPPER}} .vybose-widget-icon-list-item:not(:last-child):after' => 'content: ""',
                 ],
             ]
         );
@@ -862,17 +862,17 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'divider_style',
             [
-                'label' => __('Style', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Style', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'solid' => __('Solid', 'bodyloom-dynamic-icon-list'),
-                    'double' => __('Double', 'bodyloom-dynamic-icon-list'),
-                    'dotted' => __('Dotted', 'bodyloom-dynamic-icon-list'),
-                    'dashed' => __('Dashed', 'bodyloom-dynamic-icon-list'),
+                    'solid' => __('Solid', 'vybose-repeater-icon-list'),
+                    'double' => __('Double', 'vybose-repeater-icon-list'),
+                    'dotted' => __('Dotted', 'vybose-repeater-icon-list'),
+                    'dashed' => __('Dashed', 'vybose-repeater-icon-list'),
                 ],
                 'default' => 'solid',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-items-divider-style: {{VALUE}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-items-divider-style: {{VALUE}}',
                 ],
                 'condition' => ['divider' => 'yes'],
             ]
@@ -881,7 +881,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'divider_weight',
             [
-                'label' => __('Weight', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Weight', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -890,7 +890,7 @@ class Icon_List_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-items-divider-weight: {{SIZE}}{{UNIT}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-items-divider-weight: {{SIZE}}{{UNIT}}',
                 ],
                 'condition' => ['divider' => 'yes'],
             ]
@@ -899,12 +899,12 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'divider_width',
             [
-                'label' => __('Width', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Width', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['%', 'px'],
                 'default' => ['unit' => '%'],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-items-divider-width: {{SIZE}}{{UNIT}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-items-divider-width: {{SIZE}}{{UNIT}}',
                 ],
                 'condition' => ['divider' => 'yes'],
             ]
@@ -913,10 +913,10 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'divider_color',
             [
-                'label' => __('Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-items-divider-color: {{VALUE}}',
+                    '{{WRAPPER}}' => '--vybose-icon-list-items-divider-color: {{VALUE}}',
                 ],
                 'condition' => ['divider' => 'yes'],
             ]
@@ -938,7 +938,7 @@ class Icon_List_Widget extends Widget_Base
         $this->start_controls_section(
             'section_item_style',
             [
-                'label' => __('Item', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Item', 'vybose-repeater-icon-list'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -947,7 +947,7 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Typography::get_type(),
             [
                 'name' => 'item_typography',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-item, {{WRAPPER}} .bodyloom-widget-icon-list-item > a',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-item, {{WRAPPER}} .vybose-widget-icon-list-item > a',
             ]
         );
 
@@ -955,17 +955,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'item_normal',
-            ['label' => __('Normal', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Normal', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'item_color',
             [
-                'label' => __('Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-color: {{VALUE}};',
                 ],
             ]
         );
@@ -973,11 +973,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'item_link_color',
             [
-                'label' => __('Link Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Link Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-link-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-link-color: {{VALUE}};',
                 ],
             ]
         );
@@ -986,17 +986,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'item_hover',
-            ['label' => __('Hover', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Hover', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'item_hover_color',
             [
-                'label' => __('Hover Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Hover Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-hover-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-hover-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1004,11 +1004,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'item_link_hover_color',
             [
-                'label' => __('Link Hover Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Link Hover Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-link-hover-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-link-hover-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1020,7 +1020,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'text_indent',
             [
-                'label' => __('Indent', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Indent', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1029,7 +1029,7 @@ class Icon_List_Widget extends Widget_Base
                 ],
                 'separator' => 'before',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-text-indent: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-text-indent: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1038,32 +1038,32 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Text_Shadow::get_type(),
             [
                 'name' => 'text_shadow',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-item-text',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-item-text',
             ]
         );
 
         $this->add_control(
             'text_vertical_align',
             [
-                'label' => __('Vertical Alignment', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Vertical Alignment', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'flex-start' => [
-                        'title' => __('Top', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Top', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-v-align-top',
                     ],
                     'center' => [
-                        'title' => __('Center', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Center', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-v-align-middle',
                     ],
                     'flex-end' => [
-                        'title' => __('Bottom', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Bottom', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-v-align-bottom',
                     ],
                 ],
                 'default' => 'center',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-vertical-align: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-vertical-align: {{VALUE}};',
                 ],
                 'condition' => ['item_layout' => 'row'],
             ]
@@ -1084,7 +1084,7 @@ class Icon_List_Widget extends Widget_Base
         $this->start_controls_section(
             'section_value_style',
             [
-                'label' => __('Value', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Value', 'vybose-repeater-icon-list'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1093,7 +1093,7 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Typography::get_type(),
             [
                 'name' => 'value_typography',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-item-value, {{WRAPPER}} .bodyloom-widget-icon-list-item-value > a',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-item-value, {{WRAPPER}} .vybose-widget-icon-list-item-value > a',
             ]
         );
 
@@ -1101,17 +1101,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'value_normal',
-            ['label' => __('Normal', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Normal', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'value_color',
             [
-                'label' => __('Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-value-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-value-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1119,11 +1119,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'value_link_color',
             [
-                'label' => __('Link Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Link Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-value-link-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-value-link-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1132,17 +1132,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'value_hover',
-            ['label' => __('Hover', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Hover', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'value_hover_color',
             [
-                'label' => __('Hover Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Hover Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-value-hover-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-value-hover-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1150,11 +1150,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'value_link_hover_color',
             [
-                'label' => __('Link Hover Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Link Hover Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-value-link-hover-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-value-link-hover-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1166,7 +1166,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'value_indent',
             [
-                'label' => __('Indent', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Indent', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1175,7 +1175,7 @@ class Icon_List_Widget extends Widget_Base
                 ],
                 'separator' => 'before',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-value-indent: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-value-indent: {{SIZE}}{{UNIT}};',
                 ],
                 'conditions' => [
                     'relation' => 'or',
@@ -1208,7 +1208,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'value_gap',
             [
-                'label' => __('Gap', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Gap', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1216,7 +1216,7 @@ class Icon_List_Widget extends Widget_Base
                     'em' => ['max' => 5],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-value-gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-value-gap: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => ['item_layout' => 'column'],
             ]
@@ -1237,7 +1237,7 @@ class Icon_List_Widget extends Widget_Base
         $this->start_controls_section(
             'section_icon_style',
             [
-                'label' => __('Marker', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Marker', 'vybose-repeater-icon-list'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1245,20 +1245,20 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'number_type',
             [
-                'label' => __('Number Type', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Number Type', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'decimal' => __('Decimal', 'bodyloom-dynamic-icon-list'),
-                    'decimal-leading-zero' => __('Decimal Leading Zero', 'bodyloom-dynamic-icon-list'),
-                    'upper-latin' => __('Uppercase Latin', 'bodyloom-dynamic-icon-list'),
-                    'lower-latin' => __('Lowercase Latin', 'bodyloom-dynamic-icon-list'),
-                    'upper-roman' => __('Uppercase Roman', 'bodyloom-dynamic-icon-list'),
-                    'lower-roman' => __('Lowercase Roman', 'bodyloom-dynamic-icon-list'),
-                    'lower-greek' => __('Greek', 'bodyloom-dynamic-icon-list'),
+                    'decimal' => __('Decimal', 'vybose-repeater-icon-list'),
+                    'decimal-leading-zero' => __('Decimal Leading Zero', 'vybose-repeater-icon-list'),
+                    'upper-latin' => __('Uppercase Latin', 'vybose-repeater-icon-list'),
+                    'lower-latin' => __('Lowercase Latin', 'vybose-repeater-icon-list'),
+                    'upper-roman' => __('Uppercase Roman', 'vybose-repeater-icon-list'),
+                    'lower-roman' => __('Lowercase Roman', 'vybose-repeater-icon-list'),
+                    'lower-greek' => __('Greek', 'vybose-repeater-icon-list'),
                 ],
                 'default' => 'decimal',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-counter-type: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-counter-type: {{VALUE}};',
                 ],
                 'condition' => ['global_marker' => 'numeric'],
             ]
@@ -1267,10 +1267,10 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'number_prefix',
             [
-                'label' => __('Number Prefix', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Number Prefix', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-counter-prefix: \'{{VALUE}}\';',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-counter-prefix: \'{{VALUE}}\';',
                 ],
                 'condition' => ['global_marker' => 'numeric'],
             ]
@@ -1279,10 +1279,10 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'number_suffix',
             [
-                'label' => __('Number Suffix', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Number Suffix', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::TEXT,
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-counter-suffix: \'{{VALUE}}\';',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-counter-suffix: \'{{VALUE}}\';',
                 ],
                 'condition' => ['global_marker' => 'numeric'],
             ]
@@ -1293,7 +1293,7 @@ class Icon_List_Widget extends Widget_Base
             [
                 'name' => 'number_typography',
                 'exclude' => ['line_height'], // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-item-icon > span:before',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-item-icon > span:before',
                 'condition' => ['global_marker' => 'numeric'],
             ]
         );
@@ -1301,7 +1301,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'icon_size',
             [
-                'label' => __('Size', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Size', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1309,7 +1309,7 @@ class Icon_List_Widget extends Widget_Base
                     'em' => ['min' => 0.5],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-size: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-size: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => ['global_marker' => 'icon'],
             ]
@@ -1318,25 +1318,25 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'icon_vertical_align',
             [
-                'label' => __('Vertical Alignment', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Vertical Alignment', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'flex-start' => [
-                        'title' => __('Top', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Top', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-v-align-top',
                     ],
                     'center' => [
-                        'title' => __('Center', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Center', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-v-align-middle',
                     ],
                     'flex-end' => [
-                        'title' => __('Bottom', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Bottom', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-v-align-bottom',
                     ],
                 ],
                 'default' => 'center',
                 'selectors' => [
-                    '{{WRAPPER}} .bodyloom-widget-icon-list-item-icon' => 'align-self: {{VALUE}};',
+                    '{{WRAPPER}} .vybose-widget-icon-list-item-icon' => 'align-self: {{VALUE}};',
                 ],
             ]
         );
@@ -1345,17 +1345,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'icon_normal',
-            ['label' => __('Normal', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Normal', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'icon_color',
             [
-                'label' => __('Primary Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Primary Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1363,11 +1363,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'icon_secondary_color',
             [
-                'label' => __('Secondary Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Secondary Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-secondary-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-secondary-color: {{VALUE}};',
                 ],
                 'condition' => ['marker_view!' => 'default'],
             ]
@@ -1377,7 +1377,7 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Box_Shadow::get_type(),
             [
                 'name' => 'icon_box_shadow',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-item .bodyloom-widget-icon-list-item-icon > span',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-item .vybose-widget-icon-list-item-icon > span',
                 'condition' => ['marker_view!' => 'default'],
             ]
         );
@@ -1385,7 +1385,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'icon_rotate',
             [
-                'label' => __('Rotate', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Rotate', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['deg'],
                 'default' => ['unit' => 'deg'],
@@ -1397,7 +1397,7 @@ class Icon_List_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-rotate: rotate({{SIZE}}{{UNIT}});',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-rotate: rotate({{SIZE}}{{UNIT}});',
                 ],
             ]
         );
@@ -1406,17 +1406,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'icon_hover',
-            ['label' => __('Hover', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Hover', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'icon_hover_color',
             [
-                'label' => __('Primary Hover', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Primary Hover', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-hover-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-hover-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1424,11 +1424,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'icon_hover_secondary_color',
             [
-                'label' => __('Secondary Hover', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Secondary Hover', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-hover-secondary-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-hover-secondary-color: {{VALUE}};',
                 ],
                 'condition' => ['marker_view!' => 'default'],
             ]
@@ -1438,7 +1438,7 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Box_Shadow::get_type(),
             [
                 'name' => 'icon_hover_box_shadow',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-item:hover .bodyloom-widget-icon-list-item-icon > span',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-item:hover .vybose-widget-icon-list-item-icon > span',
                 'condition' => ['marker_view!' => 'default'],
             ]
         );
@@ -1446,7 +1446,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_control(
             'icon_rotate_hover',
             [
-                'label' => __('Rotate', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Rotate', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['deg'],
                 'default' => ['unit' => 'deg'],
@@ -1458,7 +1458,7 @@ class Icon_List_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-rotate-hover: rotate({{SIZE}}{{UNIT}});',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-rotate-hover: rotate({{SIZE}}{{UNIT}});',
                 ],
             ]
         );
@@ -1470,7 +1470,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'icon_wrapper_size',
             [
-                'label' => __('Wrapper Size', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Wrapper Size', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1485,7 +1485,7 @@ class Icon_List_Widget extends Widget_Base
                 ],
                 'separator' => 'before',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-wrapper: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-wrapper: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => ['marker_view!' => 'default'],
             ]
@@ -1494,7 +1494,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'icon_padding',
             [
-                'label' => __('Padding', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Padding', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1508,7 +1508,7 @@ class Icon_List_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-padding: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-padding: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => ['marker_view!' => 'default'],
             ]
@@ -1517,7 +1517,7 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'icon_border_width',
             [
-                'label' => __('Border Width', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Border Width', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em'],
                 'range' => [
@@ -1531,7 +1531,7 @@ class Icon_List_Widget extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-border-width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-border-width: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => ['marker_view' => 'framed'],
             ]
@@ -1540,11 +1540,11 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'icon_border_radius',
             [
-                'label' => __('Border Radius', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Border Radius', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%'],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
                 'condition' => ['marker_view!' => 'default'],
             ]
@@ -1553,25 +1553,25 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'icon_self_align',
             [
-                'label' => __('Alignment', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Alignment', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Left', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Center', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Right', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-h-align-right',
                     ],
                 ],
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-item-icon-alignment: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-item-icon-alignment: {{VALUE}};',
                 ],
                 'condition' => ['global_marker' => 'icon'],
             ]
@@ -1593,7 +1593,7 @@ class Icon_List_Widget extends Widget_Base
         $this->start_controls_section(
             'section_title_style',
             [
-                'label' => __('Title', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Title', 'vybose-repeater-icon-list'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => ['title!' => ''],
             ]
@@ -1602,24 +1602,24 @@ class Icon_List_Widget extends Widget_Base
         $this->add_responsive_control(
             'title_align',
             [
-                'label' => __('Alignment', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Alignment', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Left', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Center', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', 'bodyloom-dynamic-icon-list'),
+                        'title' => __('Right', 'vybose-repeater-icon-list'),
                         'icon' => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .bodyloom-widget-icon-list-title' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .vybose-widget-icon-list-title' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -1628,7 +1628,7 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Typography::get_type(),
             [
                 'name' => 'title_typography',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-title',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-title',
             ]
         );
 
@@ -1636,17 +1636,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'title_normal',
-            ['label' => __('Normal', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Normal', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'title_color',
             [
-                'label' => __('Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-title-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-title-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1655,17 +1655,17 @@ class Icon_List_Widget extends Widget_Base
 
         $this->start_controls_tab(
             'title_hover',
-            ['label' => __('Hover', 'bodyloom-dynamic-icon-list')]
+            ['label' => __('Hover', 'vybose-repeater-icon-list')]
         );
 
         $this->add_control(
             'title_hover_color',
             [
-                'label' => __('Hover Color', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Hover Color', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-title-hover-color: {{VALUE}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-title-hover-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1678,14 +1678,14 @@ class Icon_List_Widget extends Widget_Base
             Group_Control_Text_Shadow::get_type(),
             [
                 'name' => 'title_text_shadow',
-                'selector' => '{{WRAPPER}} .bodyloom-widget-icon-list-title',
+                'selector' => '{{WRAPPER}} .vybose-widget-icon-list-title',
             ]
         );
 
         $this->add_responsive_control(
             'title_gap',
             [
-                'label' => __('Gap', 'bodyloom-dynamic-icon-list'),
+                'label' => __('Gap', 'vybose-repeater-icon-list'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em', '%'],
                 'range' => [
@@ -1694,7 +1694,7 @@ class Icon_List_Widget extends Widget_Base
                     '%' => ['max' => 100],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}}' => '--bodyloom-icon-list-title-gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--vybose-icon-list-title-gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1714,7 +1714,7 @@ class Icon_List_Widget extends Widget_Base
     {
         $settings = $this->get_settings_for_display();
 
-        $base_class = 'bodyloom-widget-icon-list';
+        $base_class = 'vybose-widget-icon-list';
         $item_class = "{$base_class}-item";
 
         $this->add_render_attribute('icon_list', 'class', "{$base_class}-items");
@@ -1868,7 +1868,7 @@ class Icon_List_Widget extends Widget_Base
         if (!empty($item['value'])) {
             $repeater_value_setting_key = $this->get_repeater_setting_key('value', 'icon_list', $index);
 
-            $this->add_render_attribute($repeater_value_setting_key, 'class', "bodyloom-widget-icon-list-item-value");
+            $this->add_render_attribute($repeater_value_setting_key, 'class', "vybose-widget-icon-list-item-value");
 
             if ('dynamic' !== $settings['data_type']) {
                 $this->add_inline_editing_attributes($repeater_value_setting_key);
@@ -1937,32 +1937,32 @@ class Icon_List_Widget extends Widget_Base
         return [
             [
                 'field' => 'title',
-                'type' => esc_html__('Title', 'bodyloom-dynamic-icon-list'),
+                'type' => esc_html__('Title', 'vybose-repeater-icon-list'),
                 'editor_type' => 'LINE',
             ],
             [
                 'field' => 'dynamic_text',
-                'type' => esc_html__('Dynamic Text', 'bodyloom-dynamic-icon-list'),
+                'type' => esc_html__('Dynamic Text', 'vybose-repeater-icon-list'),
                 'editor_type' => 'LINE',
             ],
             [
                 'field' => 'dynamic_value',
-                'type' => esc_html__('Dynamic Value', 'bodyloom-dynamic-icon-list'),
+                'type' => esc_html__('Dynamic Value', 'vybose-repeater-icon-list'),
                 'editor_type' => 'LINE',
             ],
             'dynamic_link' => [
                 'field' => 'url',
-                'type' => esc_html__('Dynamic Link', 'bodyloom-dynamic-icon-list'),
+                'type' => esc_html__('Dynamic Link', 'vybose-repeater-icon-list'),
                 'editor_type' => 'LINK',
             ],
             [
                 'field' => 'number_prefix',
-                'type' => esc_html__('Number Prefix', 'bodyloom-dynamic-icon-list'),
+                'type' => esc_html__('Number Prefix', 'vybose-repeater-icon-list'),
                 'editor_type' => 'LINE',
             ],
             [
                 'field' => 'number_suffix',
-                'type' => esc_html__('Number Suffix', 'bodyloom-dynamic-icon-list'),
+                'type' => esc_html__('Number Suffix', 'vybose-repeater-icon-list'),
                 'editor_type' => 'LINE',
             ],
         ];
@@ -1981,17 +1981,17 @@ class Icon_List_Widget extends Widget_Base
             'icon_list' => [
                 [
                     'field' => 'text',
-                    'type' => esc_html__('Text', 'bodyloom-dynamic-icon-list'),
+                    'type' => esc_html__('Text', 'vybose-repeater-icon-list'),
                     'editor_type' => 'LINE',
                 ],
                 [
                     'field' => 'value',
-                    'type' => esc_html__('Value', 'bodyloom-dynamic-icon-list'),
+                    'type' => esc_html__('Value', 'vybose-repeater-icon-list'),
                     'editor_type' => 'LINE',
                 ],
                 'link' => [
                     'field' => 'url',
-                    'type' => esc_html__('Link', 'bodyloom-dynamic-icon-list'),
+                    'type' => esc_html__('Link', 'vybose-repeater-icon-list'),
                     'editor_type' => 'LINK',
                 ],
             ],

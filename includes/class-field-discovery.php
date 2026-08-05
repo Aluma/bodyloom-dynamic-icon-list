@@ -1,6 +1,6 @@
 <?php
 
-namespace Bodyloom\DynamicIconList;
+namespace Vybose\RepeaterIconList;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -8,13 +8,13 @@ if (!defined('ABSPATH')) {
 
 class Field_Discovery
 {
-    private const CACHE_GROUP = 'bodyloom_dynamic_icon_list';
+    private const CACHE_GROUP = 'vybose_repeater_icon_list';
     private const CACHE_TTL = 300;
 
     public static function get_repeater_options($post_type = '')
     {
         $options = [
-            '' => __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'),
+            '' => __('Manual entry / no discovered field', 'vybose-repeater-icon-list'),
         ];
 
         foreach (self::get_sources($post_type) as $source => $data) {
@@ -33,7 +33,7 @@ class Field_Discovery
     public static function get_leaf_field_options($post_type = '')
     {
         $options = [
-            '' => __('Manual entry / no discovered field', 'bodyloom-dynamic-icon-list'),
+            '' => __('Manual entry / no discovered field', 'vybose-repeater-icon-list'),
         ];
 
         foreach (self::get_sources($post_type) as $source => $data) {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Bodyloom\DynamicIconList;
+namespace Vybose\RepeaterIconList;
 
-use Bodyloom\DynamicIconList\Interfaces\Provider;
-use Bodyloom\DynamicIconList\Providers\Static_Provider;
-use Bodyloom\DynamicIconList\Providers\Acf_Provider;
-use Bodyloom\DynamicIconList\Providers\Pods_Provider;
-use Bodyloom\DynamicIconList\Providers\Metabox_Provider;
+use Vybose\RepeaterIconList\Interfaces\Provider;
+use Vybose\RepeaterIconList\Providers\Static_Provider;
+use Vybose\RepeaterIconList\Providers\Acf_Provider;
+use Vybose\RepeaterIconList\Providers\Pods_Provider;
+use Vybose\RepeaterIconList\Providers\Metabox_Provider;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly

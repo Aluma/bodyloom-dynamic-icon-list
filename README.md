@@ -1,4 +1,4 @@
-# Bodyloom Dynamic Icon List
+# Vybose Repeater Icon List
 
 **Contributors:** Jimmy Thanki  
 **Tags:** icon list, acf, metabox, pods, elementor  
@@ -8,7 +8,7 @@
 **Stable tag:** 1.1.0  
 **License:** GPLv2 or later  
 
-Bodyloom Dynamic Icon List creates static and dynamic icon lists for Elementor, the Block Editor, and shortcodes.
+Vybose Repeater Icon List creates static and dynamic icon lists for Elementor, the Block Editor, and shortcodes.
 
 ## Features
 
@@ -30,20 +30,20 @@ If you found this free plugin to be useful, please consider donating to the dham
 
 ## Installation
 
-1. Upload `bodyloom-dynamic-icon-list` to `/wp-content/plugins/`.
+1. Upload `vybose-repeater-icon-list` to `/wp-content/plugins/`.
 2. Activate the plugin in WordPress.
-3. Add the Bodyloom Icon List widget, block, or shortcode.
+3. Add the Vybose Icon List widget, block, or shortcode.
 
 ## Usage
 
-Elementor: use the "Bodyloom Icon List" widget. Choose Static for hand-authored items or Dynamic for ACF Pro, Meta Box, or Pods repeater data.
+Elementor: use the "Vybose Icon List" widget. Choose Static for hand-authored items or Dynamic for ACF Pro, Meta Box, or Pods repeater data.
 
-Block Editor: use the "Bodyloom Icon List" block and configure the source, repeater field, text field, value field, and optional link field.
+Block Editor: use the "Vybose Icon List" block and configure the source, repeater field, text field, value field, and optional link field.
 
 Shortcode:
 
 ```text
-[bodyloom_icon_list data_type="dynamic" dynamic_source="acf" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]
+[vybose_repeater_icon_list data_type="dynamic" dynamic_source="acf" acf_repeater_field_name="my_repeater" dynamic_text_sub_field="text" dynamic_value_sub_field="value" dynamic_link_sub_field="link"]
 ```
 
 Field pickers are convenience controls. Manual fields remain available for compatibility, nested field paths, and providers or field layouts that cannot be discovered safely.
@@ -52,19 +52,19 @@ Field pickers are convenience controls. Manual fields remain available for compa
 
 *Rendered Frontend Example*
 
-![Rendered Frontend Example](assets/screenshots/bodyloom-dynamic-icon-list-rendered.jpg)
+![Rendered Frontend Example](assets/screenshots/vybose-repeater-icon-list-rendered.jpg)
 
 *Elementor Elements Panel*
 
-![Elementor Elements Panel](assets/screenshots/elementor-elements-panel-bodyloom-icon-list-and-toggles-plugins.png)
+![Elementor Elements Panel](assets/screenshots/elementor-elements-panel-vybose-icon-list-and-toggles-plugins.png)
 
 *Content Edit Panel*
 
-![Content Edit Panel](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-1.png)
+![Content Edit Panel](assets/screenshots/edit-vybose-icon-list-content-edit-panel-1.png)
 
 *Additional Content Controls*
 
-![Additional Content Controls](assets/screenshots/edit-bodyloom-icon-list-content-edit-panel-2.png)
+![Additional Content Controls](assets/screenshots/edit-vybose-icon-list-content-edit-panel-2.png)
 
 
 

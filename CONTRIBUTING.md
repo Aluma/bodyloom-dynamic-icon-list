@@ -1,4 +1,4 @@
-# Contributing to Bodyloom Icon List
+# Contributing to Vybose Icon List
 
 First off, thanks for taking the time to contribute! 🎉
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bodyloom\DynamicIconList\Providers;
+namespace Vybose\RepeaterIconList\Providers;
 
-use Bodyloom\DynamicIconList\Interfaces\Provider;
+use Vybose\RepeaterIconList\Interfaces\Provider;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -17,8 +17,8 @@ class Pods_Provider implements Provider
             return [];
         }
 
-        $repeater_name = \Bodyloom\DynamicIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name_manual'); // Reusing the control name for simplicity
-        $repeater_name = $repeater_name ?: \Bodyloom\DynamicIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name');
+        $repeater_name = \Vybose\RepeaterIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name_manual'); // Reusing the control name for simplicity
+        $repeater_name = $repeater_name ?: \Vybose\RepeaterIconList\Provider_Factory::get_field_path($settings, 'acf_repeater_field_name');
 
         if (empty($repeater_name)) {
             return [];
@@ -42,9 +42,9 @@ class Pods_Provider implements Provider
         $link_key = !empty($settings['dynamic_link_sub_field_manual']) ? $settings['dynamic_link_sub_field_manual'] : ($settings['dynamic_link_sub_field'] ?? 'link');
 
         foreach ($rows as $row) {
-            $text = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $text_key, $repeater_name);
-            $value = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $value_key, $repeater_name);
-            $link_raw = \Bodyloom\DynamicIconList\Provider_Factory::get_nested_value($row, $link_key, $repeater_name);
+            $text = \Vybose\RepeaterIconList\Provider_Factory::get_nested_value($row, $text_key, $repeater_name);
+            $value = \Vybose\RepeaterIconList\Provider_Factory::get_nested_value($row, $value_key, $repeater_name);
+            $link_raw = \Vybose\RepeaterIconList\Provider_Factory::get_nested_value($row, $link_key, $repeater_name);
 
             // Normalize Link
             $link = [
