@@ -1334,7 +1334,11 @@ class Icon_List_Widget extends Widget_Base
                         'icon' => 'eicon-v-align-bottom',
                     ],
                 ],
-                'default' => 'center',
+                // Matches the stylesheet, which sets align-self: flex-start on the
+                // marker. A 'center' default emitted a higher-specificity rule that
+                // silently overrode it on every instance, so the icon never sat on
+                // the first line of a multi-line item.
+                'default' => 'flex-start',
                 'selectors' => [
                     '{{WRAPPER}} .vybose-widget-icon-list-item-icon' => 'align-self: {{VALUE}};',
                 ],

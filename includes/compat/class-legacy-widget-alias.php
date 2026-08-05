@@ -44,11 +44,25 @@ class Legacy_Widget_Alias extends Icon_List_Widget
     }
 
     /**
-     * Elementor derives the wrapper class from get_name(). Report the canonical
-     * class so any wrapper-scoped styles apply to aliased widgets too.
+     * Swap only the widget-name class, preserving everything else the parent adds.
+     *
+     * Icon_List_Widget overrides this method to append its own base class, which
+     * 59 CSS rules compound against. Returning a freshly built string here would
+     * discard that class and kill every layout rule -- collapsing the text
+     * wrapper to zero width. So delegate to the parent and rewrite one token.
      */
     public function get_html_wrapper_class()
     {
-        return 'elementor-widget-' . parent::get_name();
+        $classes = explode(' ', parent::get_html_wrapper_class());
+        $legacy = 'elementor-widget-' . $this->get_name();
+        $canonical = 'elementor-widget-' . parent::get_name();
+
+        foreach ($classes as $index => $class) {
+            if ($class === $legacy) {
+                $classes[$index] = $canonical;
+            }
+        }
+
+        return implode(' ', $classes);
     }
 }
