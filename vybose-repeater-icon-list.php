@@ -28,7 +28,7 @@ define('VYBOSE_REPEATER_ICON_LIST_URL', plugin_dir_url(__FILE__));
 
 // Autoloader
 spl_autoload_register(function ($class) {
-	$prefix = 'Vybose\\DynamicIconList\\';
+	$prefix = 'Vybose\\RepeaterIconList\\';
 	$base_dir = VYBOSE_REPEATER_ICON_LIST_PATH . 'includes/';
 
 	$len = strlen($prefix);
@@ -65,4 +65,4 @@ register_deactivation_hook(__FILE__, function () {
 	// Deactivation logic if needed
 });
 
-add_action('plugins_loaded', 'Vybose\\DynamicIconList\\vybose_repeater_icon_list_init');
+add_action('plugins_loaded', 'Vybose\\RepeaterIconList\\vybose_repeater_icon_list_init');
